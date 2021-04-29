@@ -1,4 +1,4 @@
-package com.fernandez.basketball.euroleague.match;
+package com.fernandez.basketball.euroleague.match.playByPlay;
 
 
 import org.springframework.http.HttpStatus;

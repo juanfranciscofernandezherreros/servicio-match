@@ -1,5 +1,5 @@
 
-package com.fernandez.basketball.euroleague.match.dto;
+package com.fernandez.basketball.euroleague.match.playByPlay.dto;
 
 import java.util.HashMap;
 import java.util.List;

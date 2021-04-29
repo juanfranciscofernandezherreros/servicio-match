@@ -1,8 +1,8 @@
-package com.fernandez.basketball.euroleague.match.controller;
+package com.fernandez.basketball.euroleague.match.playByPlay.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fernandez.basketball.euroleague.match.constants.UrlMapping;
-import com.fernandez.basketball.euroleague.match.dto.Match;
+import com.fernandez.basketball.commons.constants.UrlMapping;
+import com.fernandez.basketball.euroleague.match.playByPlay.dto.Match;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +23,9 @@ public class PlayByPlayController {
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + "/{fileName}")
     public Match findAll(@PathVariable String fileName) throws IOException {
             final ObjectMapper objectMapper = new ObjectMapper();
-            Match match = new ObjectMapper().readValue(new FileInputStream("src/main/resources/playByPlay"+fileName+".json"), Match.class );
+            Match match = new ObjectMapper().readValue(new FileInputStream(UrlMapping.MAIN_RESOURCES+UrlMapping.PLAYBYPLAY+fileName+".json"), Match.class );
             return match;
     }
-
-
 
 }
 
