@@ -23,7 +23,7 @@ public class PlayByPlayController {
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + "/{fileName}")
     public Match findAll(@PathVariable String fileName) throws IOException {
             final ObjectMapper objectMapper = new ObjectMapper();
-            Match match = new ObjectMapper().readValue(new FileInputStream(UrlMapping.MAIN_RESOURCES+UrlMapping.PLAYBYPLAY+fileName+".json"), Match.class );
+            Match match = new ObjectMapper().readValue(new FileInputStream(UrlMapping.MAIN_RESOURCES+UrlMapping.PLAYBYPLAY+"/"+fileName+".json"), Match.class );
             return match;
     }
 

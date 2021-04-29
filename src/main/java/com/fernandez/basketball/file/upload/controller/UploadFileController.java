@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @RestController
 public class UploadFileController {
 
@@ -17,7 +16,7 @@ public class UploadFileController {
     @RequestMapping(value = "/file/upload", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String myService(@RequestParam("file") MultipartFile file) throws Exception {
         try {
-            fileStorage.store(file, UrlMapping.PLAYBYPLAY_STR);
+            fileStorage.store(file,"playByPlay");
             return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
         } catch (Exception e) {
             return "Fail! -> uploaded filename: " + file.getOriginalFilename();

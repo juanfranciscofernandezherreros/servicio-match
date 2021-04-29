@@ -14,14 +14,14 @@ public class FileStorageImpl implements FileStorage{
 
     Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
-    private final Path rootLocation = Paths.get(UrlMapping.MAIN_RESOURCES);
-
     @Override
-    public void store(final MultipartFile file , final String folderResources){
+    public void store(MultipartFile file,String playByPlay){
+         Path rootLocation = Paths.get("src/main/resources/"+playByPlay);
         try {
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(folderResources + file.getOriginalFilename()));
+            Files.copy(file.getInputStream(), rootLocation.resolve(file.getOriginalFilename()));
         } catch (Exception e) {
             throw new RuntimeException("FAIL! -> message = " + e.getMessage());
         }
     }
 }
+
