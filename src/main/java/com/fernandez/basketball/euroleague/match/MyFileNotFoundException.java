@@ -1,4 +1,4 @@
-package com.fernandez.basketball.match.exception;
+package com.fernandez.basketball.euroleague.match;
 
 
 import org.springframework.http.HttpStatus;

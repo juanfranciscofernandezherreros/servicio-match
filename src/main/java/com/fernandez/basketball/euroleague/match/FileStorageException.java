@@ -1,4 +1,4 @@
-package com.fernandez.basketball.match.exception;
+package com.fernandez.basketball.euroleague.match;
 
 public class FileStorageException extends RuntimeException {
     public FileStorageException(String message) {

@@ -1,4 +1,4 @@
-package com.fernandez.basketball.match.constants;
+package com.fernandez.basketball.euroleague.match.constants;
 
 public final class UrlMapping {
     public static final String ROOT = "/api";

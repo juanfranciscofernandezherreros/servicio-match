@@ -1,4 +1,4 @@
-package com.fernandez.basketball.match.dto;
+package com.fernandez.basketball.euroleague.match.dto;
 
 public class FileInfo {
     private String file1;

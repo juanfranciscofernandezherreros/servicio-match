@@ -1,5 +1,5 @@
 
-package com.fernandez.basketball.match.dto;
+package com.fernandez.basketball.euroleague.match.dto;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "PLAYINFO"
 })
 @Generated("jsonschema2pojo")
-public class FirstQuarter {
+public class ExtraTime {
 
     @JsonProperty("TYPE")
     private Integer type;
@@ -214,7 +214,7 @@ public class FirstQuarter {
 
     @Override
     public String toString() {
-        return "FirstQuarter{" +
+        return "ExtraTime{" +
                 "type=" + type +
                 ", numberofplay=" + numberofplay +
                 ", codeteam='" + codeteam + '\'' +

@@ -1,4 +1,4 @@
-package com.fernandez.basketball.match.service;
+package com.fernandez.basketball.euroleague.match.service;
 
 import org.springframework.web.multipart.MultipartFile;
 

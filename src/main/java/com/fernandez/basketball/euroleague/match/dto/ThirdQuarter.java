@@ -1,5 +1,5 @@
 
-package com.fernandez.basketball.match.dto;
+package com.fernandez.basketball.euroleague.match.dto;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "PLAYINFO"
 })
 @Generated("jsonschema2pojo")
-public class ExtraTime {
+public class ThirdQuarter {
 
     @JsonProperty("TYPE")
     private Integer type;
@@ -42,11 +42,11 @@ public class ExtraTime {
     @JsonProperty("PLAYTYPE")
     private String playtype;
     @JsonProperty("PLAYER")
-    private Object player;
+    private String player;
     @JsonProperty("TEAM")
-    private Object team;
+    private String team;
     @JsonProperty("DORSAL")
-    private Object dorsal;
+    private String dorsal;
     @JsonProperty("MINUTE")
     private Integer minute;
     @JsonProperty("MARKERTIME")
@@ -113,32 +113,32 @@ public class ExtraTime {
     }
 
     @JsonProperty("PLAYER")
-    public Object getPlayer() {
+    public String getPlayer() {
         return player;
     }
 
     @JsonProperty("PLAYER")
-    public void setPlayer(Object player) {
+    public void setPlayer(String player) {
         this.player = player;
     }
 
     @JsonProperty("TEAM")
-    public Object getTeam() {
+    public String getTeam() {
         return team;
     }
 
     @JsonProperty("TEAM")
-    public void setTeam(Object team) {
+    public void setTeam(String team) {
         this.team = team;
     }
 
     @JsonProperty("DORSAL")
-    public Object getDorsal() {
+    public String getDorsal() {
         return dorsal;
     }
 
     @JsonProperty("DORSAL")
-    public void setDorsal(Object dorsal) {
+    public void setDorsal(String dorsal) {
         this.dorsal = dorsal;
     }
 
@@ -214,15 +214,15 @@ public class ExtraTime {
 
     @Override
     public String toString() {
-        return "ExtraTime{" +
+        return "ThirdQuarter{" +
                 "type=" + type +
                 ", numberofplay=" + numberofplay +
                 ", codeteam='" + codeteam + '\'' +
                 ", playerId='" + playerId + '\'' +
                 ", playtype='" + playtype + '\'' +
-                ", player=" + player +
-                ", team=" + team +
-                ", dorsal=" + dorsal +
+                ", player='" + player + '\'' +
+                ", team='" + team + '\'' +
+                ", dorsal='" + dorsal + '\'' +
                 ", minute=" + minute +
                 ", markertime='" + markertime + '\'' +
                 ", pointsA=" + pointsA +
