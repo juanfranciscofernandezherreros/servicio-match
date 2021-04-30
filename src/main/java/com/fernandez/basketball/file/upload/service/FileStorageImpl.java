@@ -3,7 +3,6 @@ package com.fernandez.basketball.file.upload.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import com.fernandez.basketball.commons.constants.UrlMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
