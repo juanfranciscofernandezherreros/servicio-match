@@ -10,6 +10,7 @@ public final class UrlMapping {
     public static final String EVOLUTION = "/evolution";
     public static final String HEADER = "/header";
     public static final String BOXSCORE = "/boxScore";
+    public static final String COMPARISSION = "/comparission";
     public static final String POINTS = "/points";
     public static final String SHOOTING = "/shooting";
 }
