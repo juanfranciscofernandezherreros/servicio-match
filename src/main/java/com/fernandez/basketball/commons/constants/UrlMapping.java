@@ -8,6 +8,7 @@ public final class UrlMapping {
     public static final String PLAYBYPLAY_STR = "PLAYBYPLAY";
     public static final String PLAYBYPLAY = "/playByPlay";
     public static final String EVOLUTION = "/evolution";
+    public static final String BOXSCORE = "/boxScore";
     public static final String POINTS = "/points";
     public static final String SHOOTING = "/shooting";
 }
