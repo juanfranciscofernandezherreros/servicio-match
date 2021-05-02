@@ -12,10 +12,21 @@ public class UploadFileController {
     @Autowired
     private FileStorage fileStorage;
 
-    @RequestMapping(value = "/file/upload{}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String myService(@RequestParam("file") MultipartFile file , @PathVariable String myEnum) throws Exception {
+    public enum MatchEnum {
+        BOXSCORE,
+        COMPARISSION,
+        EVOLUTION,
+        HEADER,
+        PLAYBYPLAY,
+        PLAYERSMATCH,
+        POINTS,
+        SHOOTING
+    }
+
+    @RequestMapping(value = "/file/upload/{myEnum}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String myService(@RequestParam("file") MultipartFile file , @PathVariable MatchEnum  matchEnum) throws Exception {
         try {
-            fileStorage.store(file,myEnum);
+            fileStorage.store(file,matchEnum.toString().toLowerCase());
             return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
         } catch (Exception e) {
             return "Fail! -> uploaded filename: " + file.getOriginalFilename();

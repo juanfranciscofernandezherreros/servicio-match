@@ -1,8 +1,6 @@
 package com.fernandez.basketball.euroleague.match.comparission.controller;
 
 import com.fernandez.basketball.commons.constants.UrlMapping;
-import com.fernandez.basketball.euroleague.match.boxScore.dto.BoxScore;
-import com.fernandez.basketball.euroleague.match.boxScore.service.BoxScoreService;
 import com.fernandez.basketball.euroleague.match.comparission.dto.Comparission;
 import com.fernandez.basketball.euroleague.match.comparission.service.ComparissionService;
 import lombok.RequiredArgsConstructor;
