@@ -34,9 +34,16 @@ public class PlayByPlayController {
     }
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + "/{gamecode}"+ UrlMapping.DOWNLOAD + "/{seasoncode}")
-    public  ResponseEntity<MatchDTO> downloadPlayByPlay(@PathVariable String gamecode , @PathVariable String seasoncode) throws IOException {
+    public  ResponseEntity<MatchDTO> downloadPlayByPlay(@PathVariable String gamecode , @PathVariable String seasoncode) {
         log.info("[PlayByPlayController][downloadPlayByPlay]");
         return playByPlayService.download(gamecode,seasoncode);
+    }
+
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.SYNC + UrlMapping.PLAYBYPLAY + "/{gamecode}"+ UrlMapping.DOWNLOAD + "/{seasoncode}")
+    public Match syncWithDatabase(@PathVariable String gamecode , @PathVariable String seasoncode) {
+        log.info("[PlayByPlayController][downloadPlayByPlay]");
+        ResponseEntity<MatchDTO> matchDTO = playByPlayService.download(gamecode,seasoncode);
+        return playByPlayService.save(matchDTO.getBody());
     }
 
 }
