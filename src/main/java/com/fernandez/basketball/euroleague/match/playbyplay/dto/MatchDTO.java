@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "ExtraTime"
 })
 @Generated("jsonschema2pojo")
-public class Match {
+public class MatchDTO {
 
     @JsonProperty("Live")
     private Boolean live;
@@ -42,15 +42,15 @@ public class Match {
     @JsonProperty("ActualQuarter")
     private Integer actualQuarter;
     @JsonProperty("FirstQuarter")
-    private List<FirstQuarter> firstQuarter = null;
+    private List<FirstQuarterDTO> firstQuarter = null;
     @JsonProperty("SecondQuarter")
-    private List<SecondQuarter> secondQuarter = null;
+    private List<SecondQuarterDTO> secondQuarter = null;
     @JsonProperty("ThirdQuarter")
-    private List<ThirdQuarter> thirdQuarter = null;
+    private List<ThirdQuarterDTO> thirdQuarter = null;
     @JsonProperty("ForthQuarter")
-    private List<ForthQuarter> forthQuarter = null;
+    private List<ForthQuarterDTO> forthQuarter = null;
     @JsonProperty("ExtraTime")
-    private List<ExtraTime> extraTime = null;
+    private List<ExtraTimeDTO> extraTime = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -115,52 +115,52 @@ public class Match {
     }
 
     @JsonProperty("FirstQuarter")
-    public List<FirstQuarter> getFirstQuarter() {
+    public List<FirstQuarterDTO> getFirstQuarter() {
         return firstQuarter;
     }
 
     @JsonProperty("FirstQuarter")
-    public void setFirstQuarter(List<FirstQuarter> firstQuarter) {
+    public void setFirstQuarter(List<FirstQuarterDTO> firstQuarter) {
         this.firstQuarter = firstQuarter;
     }
 
     @JsonProperty("SecondQuarter")
-    public List<SecondQuarter> getSecondQuarter() {
+    public List<SecondQuarterDTO> getSecondQuarter() {
         return secondQuarter;
     }
 
     @JsonProperty("SecondQuarter")
-    public void setSecondQuarter(List<SecondQuarter> secondQuarter) {
+    public void setSecondQuarter(List<SecondQuarterDTO> secondQuarter) {
         this.secondQuarter = secondQuarter;
     }
 
     @JsonProperty("ThirdQuarter")
-    public List<ThirdQuarter> getThirdQuarter() {
+    public List<ThirdQuarterDTO> getThirdQuarter() {
         return thirdQuarter;
     }
 
     @JsonProperty("ThirdQuarter")
-    public void setThirdQuarter(List<ThirdQuarter> thirdQuarter) {
+    public void setThirdQuarter(List<ThirdQuarterDTO> thirdQuarter) {
         this.thirdQuarter = thirdQuarter;
     }
 
     @JsonProperty("ForthQuarter")
-    public List<ForthQuarter> getForthQuarter() {
+    public List<ForthQuarterDTO> getForthQuarter() {
         return forthQuarter;
     }
 
     @JsonProperty("ForthQuarter")
-    public void setForthQuarter(List<ForthQuarter> forthQuarter) {
+    public void setForthQuarter(List<ForthQuarterDTO> forthQuarter) {
         this.forthQuarter = forthQuarter;
     }
 
     @JsonProperty("ExtraTime")
-    public List<ExtraTime> getExtraTime() {
+    public List<ExtraTimeDTO> getExtraTime() {
         return extraTime;
     }
 
     @JsonProperty("ExtraTime")
-    public void setExtraTime(List<ExtraTime> extraTime) {
+    public void setExtraTime(List<ExtraTimeDTO> extraTime) {
         this.extraTime = extraTime;
     }
 

@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "PLAYINFO"
 })
 @Generated("jsonschema2pojo")
-public class SecondQuarter {
+public class ExtraTimeDTO {
 
     @JsonProperty("TYPE")
     private Integer type;
@@ -42,11 +42,11 @@ public class SecondQuarter {
     @JsonProperty("PLAYTYPE")
     private String playtype;
     @JsonProperty("PLAYER")
-    private String player;
+    private Object player;
     @JsonProperty("TEAM")
-    private String team;
+    private Object team;
     @JsonProperty("DORSAL")
-    private String dorsal;
+    private Object dorsal;
     @JsonProperty("MINUTE")
     private Integer minute;
     @JsonProperty("MARKERTIME")
@@ -113,32 +113,32 @@ public class SecondQuarter {
     }
 
     @JsonProperty("PLAYER")
-    public String getPlayer() {
+    public Object getPlayer() {
         return player;
     }
 
     @JsonProperty("PLAYER")
-    public void setPlayer(String player) {
+    public void setPlayer(Object player) {
         this.player = player;
     }
 
     @JsonProperty("TEAM")
-    public String getTeam() {
+    public Object getTeam() {
         return team;
     }
 
     @JsonProperty("TEAM")
-    public void setTeam(String team) {
+    public void setTeam(Object team) {
         this.team = team;
     }
 
     @JsonProperty("DORSAL")
-    public String getDorsal() {
+    public Object getDorsal() {
         return dorsal;
     }
 
     @JsonProperty("DORSAL")
-    public void setDorsal(String dorsal) {
+    public void setDorsal(Object dorsal) {
         this.dorsal = dorsal;
     }
 
@@ -214,15 +214,15 @@ public class SecondQuarter {
 
     @Override
     public String toString() {
-        return "SecondQuarter{" +
+        return "ExtraTime{" +
                 "type=" + type +
                 ", numberofplay=" + numberofplay +
                 ", codeteam='" + codeteam + '\'' +
                 ", playerId='" + playerId + '\'' +
                 ", playtype='" + playtype + '\'' +
-                ", player='" + player + '\'' +
-                ", team='" + team + '\'' +
-                ", dorsal='" + dorsal + '\'' +
+                ", player=" + player +
+                ", team=" + team +
+                ", dorsal=" + dorsal +
                 ", minute=" + minute +
                 ", markertime='" + markertime + '\'' +
                 ", pointsA=" + pointsA +

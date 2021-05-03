@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "PLAYINFO"
 })
 @Generated("jsonschema2pojo")
-public class ForthQuarter {
+public class ForthQuarterDTO {
 
     @JsonProperty("TYPE")
     private Integer type;

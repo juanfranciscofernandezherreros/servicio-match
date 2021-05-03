@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "PLAYINFO"
 })
 @Generated("jsonschema2pojo")
-public class ThirdQuarter {
+public class FirstQuarterDTO {
 
     @JsonProperty("TYPE")
     private Integer type;
@@ -52,9 +52,9 @@ public class ThirdQuarter {
     @JsonProperty("MARKERTIME")
     private String markertime;
     @JsonProperty("POINTS_A")
-    private Object pointsA;
+    private String pointsA;
     @JsonProperty("POINTS_B")
-    private Object pointsB;
+    private String pointsB;
     @JsonProperty("COMMENT")
     private String comment;
     @JsonProperty("PLAYINFO")
@@ -163,22 +163,22 @@ public class ThirdQuarter {
     }
 
     @JsonProperty("POINTS_A")
-    public Object getPointsA() {
+    public String getPointsA() {
         return pointsA;
     }
 
     @JsonProperty("POINTS_A")
-    public void setPointsA(Object pointsA) {
+    public void setPointsA(String pointsA) {
         this.pointsA = pointsA;
     }
 
     @JsonProperty("POINTS_B")
-    public Object getPointsB() {
+    public String getPointsB() {
         return pointsB;
     }
 
     @JsonProperty("POINTS_B")
-    public void setPointsB(Object pointsB) {
+    public void setPointsB(String pointsB) {
         this.pointsB = pointsB;
     }
 
@@ -214,15 +214,15 @@ public class ThirdQuarter {
 
     @Override
     public String toString() {
-        return "ThirdQuarter{" +
+        return "FirstQuarter{" +
                 "type=" + type +
                 ", numberofplay=" + numberofplay +
                 ", codeteam='" + codeteam + '\'' +
                 ", playerId='" + playerId + '\'' +
                 ", playtype='" + playtype + '\'' +
-                ", player='" + player + '\'' +
-                ", team='" + team + '\'' +
-                ", dorsal='" + dorsal + '\'' +
+                ", player=" + player +
+                ", team=" + team +
+                ", dorsal=" + dorsal +
                 ", minute=" + minute +
                 ", markertime='" + markertime + '\'' +
                 ", pointsA=" + pointsA +
