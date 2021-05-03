@@ -13,20 +13,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "TYPE",
-    "NUMBEROFPLAY",
-    "CODETEAM",
-    "PLAYER_ID",
-    "PLAYTYPE",
-    "PLAYER",
-    "TEAM",
-    "DORSAL",
-    "MINUTE",
-    "MARKERTIME",
-    "POINTS_A",
-    "POINTS_B",
-    "COMMENT",
-    "PLAYINFO"
+        "TYPE",
+        "NUMBEROFPLAY",
+        "CODETEAM",
+        "PLAYER_ID",
+        "PLAYTYPE",
+        "PLAYER",
+        "TEAM",
+        "DORSAL",
+        "MINUTE",
+        "MARKERTIME",
+        "POINTS_A",
+        "POINTS_B",
+        "COMMENT",
+        "PLAYINFO"
 })
 @Generated("jsonschema2pojo")
 public class ForthQuarterDTO {
@@ -42,19 +42,19 @@ public class ForthQuarterDTO {
     @JsonProperty("PLAYTYPE")
     private String playtype;
     @JsonProperty("PLAYER")
-    private Object player;
+    private String player;
     @JsonProperty("TEAM")
-    private Object team;
+    private String team;
     @JsonProperty("DORSAL")
-    private Object dorsal;
+    private String dorsal;
     @JsonProperty("MINUTE")
     private Integer minute;
     @JsonProperty("MARKERTIME")
     private String markertime;
     @JsonProperty("POINTS_A")
-    private Object pointsA;
+    private String pointsA;
     @JsonProperty("POINTS_B")
-    private Object pointsB;
+    private String pointsB;
     @JsonProperty("COMMENT")
     private String comment;
     @JsonProperty("PLAYINFO")
@@ -113,32 +113,32 @@ public class ForthQuarterDTO {
     }
 
     @JsonProperty("PLAYER")
-    public Object getPlayer() {
+    public String getPlayer() {
         return player;
     }
 
     @JsonProperty("PLAYER")
-    public void setPlayer(Object player) {
+    public void setPlayer(String player) {
         this.player = player;
     }
 
     @JsonProperty("TEAM")
-    public Object getTeam() {
+    public String getTeam() {
         return team;
     }
 
     @JsonProperty("TEAM")
-    public void setTeam(Object team) {
+    public void setTeam(String team) {
         this.team = team;
     }
 
     @JsonProperty("DORSAL")
-    public Object getDorsal() {
+    public String getDorsal() {
         return dorsal;
     }
 
     @JsonProperty("DORSAL")
-    public void setDorsal(Object dorsal) {
+    public void setDorsal(String dorsal) {
         this.dorsal = dorsal;
     }
 
@@ -163,22 +163,22 @@ public class ForthQuarterDTO {
     }
 
     @JsonProperty("POINTS_A")
-    public Object getPointsA() {
+    public String getPointsA() {
         return pointsA;
     }
 
     @JsonProperty("POINTS_A")
-    public void setPointsA(Object pointsA) {
+    public void setPointsA(String pointsA) {
         this.pointsA = pointsA;
     }
 
     @JsonProperty("POINTS_B")
-    public Object getPointsB() {
+    public String getPointsB() {
         return pointsB;
     }
 
     @JsonProperty("POINTS_B")
-    public void setPointsB(Object pointsB) {
+    public void setPointsB(String pointsB) {
         this.pointsB = pointsB;
     }
 
@@ -214,7 +214,7 @@ public class ForthQuarterDTO {
 
     @Override
     public String toString() {
-        return "ForthQuarter{" +
+        return "FirstQuarter{" +
                 "type=" + type +
                 ", numberofplay=" + numberofplay +
                 ", codeteam='" + codeteam + '\'' +
