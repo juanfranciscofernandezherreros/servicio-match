@@ -23,7 +23,7 @@ public class UploadFileController {
         SHOOTING
     }
 
-    @RequestMapping(value = "/file/upload/{myEnum}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/file/upload/{matchEnum}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String myService(@RequestParam("file") MultipartFile file , @PathVariable MatchEnum  matchEnum) throws Exception {
         try {
             fileStorage.store(file,matchEnum.toString().toLowerCase());
