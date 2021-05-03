@@ -18,6 +18,7 @@ public final class UrlMapping {
     public static final String SYNC = "/sync";
     public static final String CLUBCODE = "/clubcode";
     public static final String SEASSONCODE = "/seassoncode";
+    public static final String TEAMS = "/teams";
 
 
 }
