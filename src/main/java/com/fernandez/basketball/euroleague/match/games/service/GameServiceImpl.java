@@ -1,11 +1,17 @@
 package com.fernandez.basketball.euroleague.match.games.service;
 
+import com.fernandez.basketball.euroleague.match.common.repository.MatchRepository;
+import com.fernandez.basketball.euroleague.match.games.dto.GamesDTO;
+import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
 import com.fernandez.basketball.utils.DocumenUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +20,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService{
+
+    private final MatchRepository matchRepository;
+
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public List<String> findAllGamesByTeamAndYear(String clubcode, String seasoncode) {
@@ -33,6 +43,15 @@ public class GameServiceImpl implements GameService{
             log.error("El Status Code no es OK es: "+DocumenUtils.getStatusConnectionCode(url));
         }
         return gamesDTOList;
+    }
+
+    @Override
+    public Page<GamesDTO> findAllGames (final Pageable pageable ) {
+        return matchRepository.findAll(pageable).map(this::mapFromEntityToDto);
+    }
+
+    private GamesDTO mapFromEntityToDto (final Match match ) {
+        return modelMapper.map(match, GamesDTO.class);
     }
 
 }

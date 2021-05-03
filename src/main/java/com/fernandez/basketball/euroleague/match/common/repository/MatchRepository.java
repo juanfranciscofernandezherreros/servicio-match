@@ -1,4 +1,4 @@
-package com.fernandez.basketball.euroleague.match.playbyplay.repository;
+package com.fernandez.basketball.euroleague.match.common.repository;
 
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -5,7 +5,7 @@ import com.fernandez.basketball.commons.constants.UrlMapping;
 import com.fernandez.basketball.euroleague.match.playbyplay.adapter.MatchAdapter;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
-import com.fernandez.basketball.euroleague.match.playbyplay.repository.MatchRepository;
+import com.fernandez.basketball.euroleague.match.common.repository.MatchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
