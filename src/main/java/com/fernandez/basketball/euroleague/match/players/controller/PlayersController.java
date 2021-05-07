@@ -1,12 +1,11 @@
 package com.fernandez.basketball.euroleague.match.players.controller;
 
 import com.fernandez.basketball.commons.constants.UrlMapping;
-import com.fernandez.basketball.euroleague.match.games.service.GameService;
 import com.fernandez.basketball.euroleague.match.players.dto.PlayerDTO;
 import com.fernandez.basketball.euroleague.match.players.service.PlayersService;
-import com.fernandez.basketball.file.upload.controller.UploadFileController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +22,12 @@ public class PlayersController {
     private final PlayersService playersService;
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYERS)
-    public List<PlayerDTO> findAllPlayersByTeamAndPosition(@RequestParam String letters,
+    public Page<PlayerDTO> findAllPlayersByTeamAndPosition(@RequestParam(required=true) String letters,
                                                            Pageable pageable) {
-        log.info("[PlayersController][findAllPlayersByTeamAndPosition] lettersPlayers={}",letters);
-        return playersService.findAllPlayersByTeamAndPosition(letters,pageable);
+        log.info("[PlayersController][findAllPlayersByTeamAndPosition] lettersPlayers={}",letters );
+        return playersService.findAllPlayersByTeamAndPosition(letters , pageable);
     }
+
+
 
 }
