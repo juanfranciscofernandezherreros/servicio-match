@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,12 @@ public class GamesController {
     public List<GamesScrappingDTO> findAllGamesByTeamAndYear(@PathVariable String clubcode , @PathVariable String seasoncode) {
         log.info("[GamesController][findAllGamesByTeamAndYear] clubcode={} seasoncode={}" , clubcode , seasoncode);
         return gameService.findAllGamesByTeamAndYear(clubcode,seasoncode);
+    }
+
+    @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES)
+    public List<GamesScrappingDTO> saveGamesByTeamAndYear() {
+        log.info("[GamesController][saveGamesByTeamAndYear]");
+        return null;
     }
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES)

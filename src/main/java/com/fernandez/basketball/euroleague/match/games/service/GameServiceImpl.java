@@ -29,24 +29,50 @@ public class GameServiceImpl implements GameService{
     @Override
     public List<GamesScrappingDTO> findAllGamesByTeamAndYear(String clubcode, String seasoncode) {
         String url = "https://www.euroleague.net/competition/teams/showteam?clubcode="+clubcode+"&seasoncode=E"+seasoncode+"#!games";
-        List<GamesScrappingDTO> gamesDTOList = new ArrayList<GamesScrappingDTO>();
+        List<GamesScrappingDTO> gamesScrappingDTOList = new ArrayList<>();
         // Compruebo si me da un 200 al hacer la petición
         if (DocumenUtils.getStatusConnectionCode(url) == 200) {
             // Obtengo el HTML de la web en un objeto Document
             Document document = DocumenUtils.getHtmlDocument(url);
-            Elements links = document.select("a[href]");
-            for (Element link : links) {
-                if(link.text().contains("vs") || link.text().contains("at") & link.attr("href").contains("/main/results/showgame")){
-                    GamesScrappingDTO gamesScrappingDTO = new GamesScrappingDTO();
-                    gamesScrappingDTO.setVersus(link.text());
-                    gamesScrappingDTO.setMatchLink("https://www.euroleague.net".concat(link.attr("href")));
-                    gamesDTOList.add(gamesScrappingDTO);
-                }
+            Elements versusContainer = document.select("td.VersusContainer");
+            Elements gameNumberContainer = document.select("td.GameNumberContainer");
+            Elements winLoseContainer = document.select("td.WinLoseContainer");
+            Elements teamPhaseGameScoreContainer = document.select("td.TeamPhaseGameScoreContainer");
+            Elements linksMatchContainer = versusContainer.select("a[href]");
+            List<String> gameNumberList = new ArrayList<>();
+            List<String> winLoseList = new ArrayList<>();
+            List<String> versusList = new ArrayList<>();
+            List<String> teamPhaseGameScoreList = new ArrayList<>();
+            List<String> linksMatchList = new ArrayList<>();
+
+            for (Element number : gameNumberContainer) {
+                gameNumberList.add(number.text());
+            }
+            for (Element winLose : winLoseContainer) {
+                winLoseList.add(winLose.text());
+            }
+            for (Element versus : versusContainer) {
+                versusList.add(versus.text());
+            }
+            for (Element teamPhaseGameScore : teamPhaseGameScoreContainer) {
+                teamPhaseGameScoreList.add(teamPhaseGameScore.text());
+            }
+            for (Element linkMatch : linksMatchContainer) {
+                linksMatchList.add("https://www.euroleague.net".concat(linkMatch.attr("href")));
+            }
+            for(int i=0;i<gameNumberList.size();i++){
+                GamesScrappingDTO gamesScrappingDTO = new GamesScrappingDTO();
+                gamesScrappingDTO.setNumberMatch(gameNumberList.get(i));
+                gamesScrappingDTO.setWinLose(winLoseList.get(i));
+                gamesScrappingDTO.setVersus(versusList.get(i));
+                gamesScrappingDTO.setTeamPhaseGameScore(teamPhaseGameScoreList.get(i));
+                gamesScrappingDTO.setMatchLink(linksMatchList.get(i));
+                gamesScrappingDTOList.add(gamesScrappingDTO);
             }
         }else{
             log.error("El Status Code no es OK es: "+DocumenUtils.getStatusConnectionCode(url));
         }
-        return gamesDTOList;
+        return gamesScrappingDTOList;
     }
 
     @Override

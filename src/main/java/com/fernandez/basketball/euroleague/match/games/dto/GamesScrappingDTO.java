@@ -10,7 +10,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class GamesScrappingDTO {
-
+    private String numberMatch;
+    private String winLose;
     private String versus;
+    private String teamPhaseGameScore;
     private String matchLink;
 }
