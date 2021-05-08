@@ -2,6 +2,7 @@ package com.fernandez.basketball.euroleague.match.games.service;
 
 import com.fernandez.basketball.euroleague.match.common.repository.MatchRepository;
 import com.fernandez.basketball.euroleague.match.games.dto.GamesDTO;
+import com.fernandez.basketball.euroleague.match.games.dto.GamesScrappingDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
 import com.fernandez.basketball.utils.DocumenUtils;
 import lombok.RequiredArgsConstructor;
@@ -26,17 +27,20 @@ public class GameServiceImpl implements GameService{
     private final ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public List<String> findAllGamesByTeamAndYear(String clubcode, String seasoncode) {
+    public List<GamesScrappingDTO> findAllGamesByTeamAndYear(String clubcode, String seasoncode) {
         String url = "https://www.euroleague.net/competition/teams/showteam?clubcode="+clubcode+"&seasoncode=E"+seasoncode+"#!games";
-        List<String> gamesDTOList = new ArrayList<>();
+        List<GamesScrappingDTO> gamesDTOList = new ArrayList<GamesScrappingDTO>();
         // Compruebo si me da un 200 al hacer la petición
         if (DocumenUtils.getStatusConnectionCode(url) == 200) {
             // Obtengo el HTML de la web en un objeto Document
             Document document = DocumenUtils.getHtmlDocument(url);
             Elements links = document.select("a[href]");
             for (Element link : links) {
-                if(link.text().contains("vs") && link.attr("href").contains("/main/results/showgame")){
-                    gamesDTOList.add("https://www.euroleague.net".concat(link.attr("href")));
+                if(link.text().contains("vs") || link.text().contains("at") & link.attr("href").contains("/main/results/showgame")){
+                    GamesScrappingDTO gamesScrappingDTO = new GamesScrappingDTO();
+                    gamesScrappingDTO.setVersus(link.text());
+                    gamesScrappingDTO.setMatchLink("https://www.euroleague.net".concat(link.attr("href")));
+                    gamesDTOList.add(gamesScrappingDTO);
                 }
             }
         }else{
