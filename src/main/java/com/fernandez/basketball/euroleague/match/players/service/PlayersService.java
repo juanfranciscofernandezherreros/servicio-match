@@ -6,5 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 
 public interface PlayersService {
-    Page<PlayerDTO> findAllPlayersByTeamAndPosition(String letters, Pageable pageable);
+    Page<PlayerDTO> findAllPlayersByTeamAndPosition(String team, String letters, Pageable pageable);
+    PlayerDTO findPlayerByYear(String pCode,String year);
 }

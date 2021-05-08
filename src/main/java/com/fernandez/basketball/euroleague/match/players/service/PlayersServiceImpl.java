@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 @Slf4j
@@ -24,8 +23,8 @@ import java.util.Objects;
 public class PlayersServiceImpl implements PlayersService{
 
     @Override
-    public Page<PlayerDTO> findAllPlayersByTeamAndPosition(String letters, Pageable pageable) {
-        String url = "https://www.euroleague.net/competition/players?listtype=alltime&name="+letters;
+    public Page<PlayerDTO> findAllPlayersByTeamAndPosition(String team , String letters, Pageable pageable) {
+        String url = "https://www.euroleague.net/competition/players?listtype=alltime&team="+team+"&name="+letters;
         Document document = DocumenUtils.getHtmlDocument(url);
         Elements links = document.select("a[href]");
         List<PlayerDTO> playerDTOList = new ArrayList<PlayerDTO>();
@@ -39,6 +38,22 @@ public class PlayersServiceImpl implements PlayersService{
             }
         }
         return convertList2Page(playerDTOList,pageable);
+    }
+
+    @Override
+    public PlayerDTO findPlayerByYear(final String pCode,final String year) {
+        PlayerDTO playerDTO = new PlayerDTO();
+        String url = "https://www.euroleague.net/competition/players/showplayer?pcode="+pCode+"&seasoncode=E"+year;
+        Document document = DocumenUtils.getHtmlDocument(url);
+        Element nameTeam = document.select("span.club").first();
+        Element namePlayer = document.select("div.name").first();
+        Element dorsal = document.select("span.dorsal").first();
+        playerDTO.setName(namePlayer.text());
+        playerDTO.setNumber(dorsal.text());
+        playerDTO.setNameTeam(nameTeam.text());
+        playerDTO.setPlayerCode(pCode);
+        playerDTO.setYear(year);
+        return playerDTO;
     }
 
     private Page convertList2Page(final List list, final Pageable pageable) {

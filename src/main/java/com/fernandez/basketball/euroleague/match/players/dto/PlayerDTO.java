@@ -12,6 +12,8 @@ import lombok.ToString;
 public class PlayerDTO {
     private String name;
     private String number;
+    private String playerCode;
     private String nameTeam;
     private String linkDetail;
+    private String year;
 }
