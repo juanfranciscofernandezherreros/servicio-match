@@ -7,6 +7,7 @@ public final class UrlMapping {
     public static final String MAIN_RESOURCES = "src/main/resources";
     public static final String PLAYBYPLAY = "/playbyplay";
     public static final String EVOLUTION = "/evolution";
+    public static final String MATCH = "/match";
     public static final String HEADER = "/header";
     public static final String BOXSCORE = "/boxscore";
     public static final String COMPARISSION = "/comparission";

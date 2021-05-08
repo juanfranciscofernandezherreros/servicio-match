@@ -2,10 +2,11 @@ package com.fernandez.basketball.euroleague.match.playbyplay.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fernandez.basketball.commons.constants.UrlMapping;
+import com.fernandez.basketball.euroleague.match.common.repository.*;
+import com.fernandez.basketball.euroleague.match.playbyplay.adapter.FirtsQuarterAdapter;
 import com.fernandez.basketball.euroleague.match.playbyplay.adapter.MatchAdapter;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
-import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
-import com.fernandez.basketball.euroleague.match.common.repository.MatchRepository;
+import com.fernandez.basketball.euroleague.match.playbyplay.entity.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -27,6 +29,17 @@ public class PlayByPlayImpl implements PlayByPlayService{
     private final ModelMapper modelMapper = new ModelMapper();
 
     private final MatchRepository matchRepository;
+
+    private final FirstQuarterRepository firstQuarterRepository;
+
+    private final SecondQuarterRepository secondQuarterRepository;
+
+    private final ThirdQuarterRepository thirdQuarterRepository;
+
+    private final ForthQuarterRepository forthQuarterRepository;
+
+    private final ExtraTimeRepository extraTimeRepository;
+
 
     @Override
     public MatchDTO findAllMovementsFromMatchInJsonFile(String fileName) throws IOException {
@@ -49,5 +62,12 @@ public class PlayByPlayImpl implements PlayByPlayService{
         headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
         HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
         return rt.exchange("https://live.euroleague.net/api/PlayByPlay?gamecode="+gamecode+"&seasoncode=E"+seasoncode+"", HttpMethod.GET, entity, MatchDTO.class);
+    }
+
+    @Override
+    public MatchDTO findAllPlayByPlayFromMatch(Long matchId) {
+        MatchDTO matchDTO = new MatchDTO();
+        Match match = matchRepository.findById(matchId).get();
+        return modelMapper.map(match,MatchDTO.class);
     }
 }

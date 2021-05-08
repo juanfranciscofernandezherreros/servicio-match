@@ -1,5 +1,6 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,5 +37,6 @@ public class FirstQuarter {
     private String comment;
     private String playinfo;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Match match;
 }

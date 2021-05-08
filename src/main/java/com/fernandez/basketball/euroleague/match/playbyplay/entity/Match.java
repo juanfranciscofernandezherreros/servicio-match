@@ -1,5 +1,6 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,17 +33,22 @@ public class Match {
     private Integer actualQuarter;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="match_id")
+    @JsonBackReference
     private List<FirstQuarter> firstQuarter;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="match_id")
+    @JsonBackReference
     private List<SecondQuarter> secondQuarter;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="match_id")
+    @JsonBackReference
     private List<ThirdQuarter> thirdQuarter;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="match_id")
+    @JsonBackReference
     private List<ForthQuarter> forthQuarter;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="match_id")
+    @JsonBackReference
     private List<ExtraTime> extraTime;
 }

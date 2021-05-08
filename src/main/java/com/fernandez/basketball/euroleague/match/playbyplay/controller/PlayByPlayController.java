@@ -27,6 +27,12 @@ public class PlayByPlayController {
         return playByPlayService.findAllMovementsFromMatchInJsonFile(fileName);
     }
 
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.MATCH + "/{matchId}")
+    public MatchDTO findAllPlayByPlayFromMatch(@PathVariable Long matchId) {
+        log.info("[PlayByPlayController][findAllPlayByPlayFromMatch] matchId={}" , matchId);
+        return playByPlayService.findAllPlayByPlayFromMatch(matchId);
+    }
+
     @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY)
     public Match save(@RequestBody MatchDTO match) {
         log.info("[PlayByPlayController][save] match={}" , match);

@@ -10,4 +10,5 @@ public interface PlayByPlayService {
     MatchDTO findAllMovementsFromMatchInJsonFile(String fileName) throws IOException;
     Match save(MatchDTO saveMatch);
     ResponseEntity<MatchDTO> download(String clubcode, String seasoncode);
+    MatchDTO findAllPlayByPlayFromMatch(Long matchId);
 }
