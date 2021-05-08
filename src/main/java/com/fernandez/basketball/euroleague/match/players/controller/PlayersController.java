@@ -21,7 +21,7 @@ public class PlayersController {
     private final PlayersService playersService;
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYERS)
-    public Page<PlayerDTO> findAllPlayersByTeamAndPosition(@RequestParam(required=true) String team,
+    public Page<PlayerDTO> findAllPlayersByTeamAndPosition(@RequestParam(required=false) String team,
                                                            @RequestParam(required=true) String letters,
                                                            Pageable pageable) {
         log.info("[PlayersController][findAllPlayersByTeamAndPosition] lettersPlayers={}",letters );

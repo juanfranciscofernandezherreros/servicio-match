@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Slf4j
@@ -24,7 +25,12 @@ public class PlayersServiceImpl implements PlayersService{
 
     @Override
     public Page<PlayerDTO> findAllPlayersByTeamAndPosition(String team , String letters, Pageable pageable) {
-        String url = "https://www.euroleague.net/competition/players?listtype=alltime&team="+team+"&name="+letters;
+        String url = new String();
+        if(Objects.isNull(team)){
+            url = "https://www.euroleague.net/competition/players?listtype=alltime&name="+letters;
+        }else{
+            url = "https://www.euroleague.net/competition/players?listtype=alltime&team="+team+"&name="+letters;
+        }
         Document document = DocumenUtils.getHtmlDocument(url);
         Elements links = document.select("a[href]");
         List<PlayerDTO> playerDTOList = new ArrayList<PlayerDTO>();
