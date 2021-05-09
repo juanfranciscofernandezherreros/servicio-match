@@ -39,4 +39,6 @@ public class FirstQuarter {
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     private Match match;
+    private boolean markAsFavourite;
+
 }

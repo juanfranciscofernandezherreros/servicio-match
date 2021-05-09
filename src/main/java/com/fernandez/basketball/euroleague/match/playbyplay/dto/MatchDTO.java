@@ -13,22 +13,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "Live",
-    "TeamA",
-    "TeamB",
-    "CodeTeamA",
-    "CodeTeamB",
-    "ActualQuarter",
-    "FirstQuarter",
-    "SecondQuarter",
-    "ThirdQuarter",
-    "ForthQuarter",
-    "ExtraTime"
-})
 @Generated("jsonschema2pojo")
 public class MatchDTO {
-
+    private Long id;
     @JsonProperty("Live")
     private Boolean live;
     @JsonProperty("TeamA")
@@ -51,6 +38,7 @@ public class MatchDTO {
     private List<ForthQuarterDTO> forthQuarter = null;
     @JsonProperty("ExtraTime")
     private List<ExtraTimeDTO> extraTime = null;
+    private boolean markAsFavourite;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -174,10 +162,27 @@ public class MatchDTO {
         this.additionalProperties.put(name, value);
     }
 
+    public boolean isMarkAsFavourite() {
+        return markAsFavourite;
+    }
+
+    public void setMarkAsFavourite(boolean markAsFavourite) {
+        this.markAsFavourite = markAsFavourite;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return "Match{" +
-                "live=" + live +
+        return "MatchDTO{" +
+                "id=" + id +
+                ", live=" + live +
                 ", teamA='" + teamA + '\'' +
                 ", teamB='" + teamB + '\'' +
                 ", codeTeamA='" + codeTeamA + '\'' +
@@ -188,6 +193,7 @@ public class MatchDTO {
                 ", thirdQuarter=" + thirdQuarter +
                 ", forthQuarter=" + forthQuarter +
                 ", extraTime=" + extraTime +
+                ", markAsFavourite=" + markAsFavourite +
                 ", additionalProperties=" + additionalProperties +
                 '}';
     }

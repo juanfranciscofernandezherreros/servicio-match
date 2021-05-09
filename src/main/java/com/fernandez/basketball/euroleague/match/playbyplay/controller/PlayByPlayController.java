@@ -1,6 +1,7 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.controller;
 
 import com.fernandez.basketball.commons.constants.UrlMapping;
+import com.fernandez.basketball.euroleague.match.playbyplay.dto.MarkAsFavouriteDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
 import com.fernandez.basketball.euroleague.match.playbyplay.service.PlayByPlayService;
@@ -21,6 +22,18 @@ public class PlayByPlayController {
 
     private final PlayByPlayService playByPlayService;
 
+    @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY)
+    public Match save(@RequestBody MatchDTO match) {
+        log.info("[PlayByPlayController][save] match={}" , match);
+        return playByPlayService.save(match);
+    }
+
+    @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.FAVOURITE + UrlMapping.PLAYBYPLAY)
+    public void markPlayByPlayAsFavourite(@RequestBody MarkAsFavouriteDTO markAsFavouriteDTO) {
+        log.info("[PlayByPlayController][markPlayByPlayAsFavourite] markAsFavouriteDTO={}" , markAsFavouriteDTO);
+        playByPlayService.markAsFavourite(markAsFavouriteDTO);
+    }
+
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + "/{fileName}")
     public MatchDTO findAll(@PathVariable String fileName) throws IOException {
         log.info("[PlayByPlayController][findAll] fileName={}" , fileName);
@@ -31,12 +44,6 @@ public class PlayByPlayController {
     public MatchDTO findAllPlayByPlayFromMatch(@PathVariable Long matchId) {
         log.info("[PlayByPlayController][findAllPlayByPlayFromMatch] matchId={}" , matchId);
         return playByPlayService.findAllPlayByPlayFromMatch(matchId);
-    }
-
-    @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY)
-    public Match save(@RequestBody MatchDTO match) {
-        log.info("[PlayByPlayController][save] match={}" , match);
-        return playByPlayService.save(match);
     }
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + "/{gamecode}"+ UrlMapping.DOWNLOAD + "/{seasoncode}")

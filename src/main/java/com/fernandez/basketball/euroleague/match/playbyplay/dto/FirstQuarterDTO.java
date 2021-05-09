@@ -12,25 +12,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "TYPE",
-    "NUMBEROFPLAY",
-    "CODETEAM",
-    "PLAYER_ID",
-    "PLAYTYPE",
-    "PLAYER",
-    "TEAM",
-    "DORSAL",
-    "MINUTE",
-    "MARKERTIME",
-    "POINTS_A",
-    "POINTS_B",
-    "COMMENT",
-    "PLAYINFO"
-})
 @Generated("jsonschema2pojo")
 public class FirstQuarterDTO {
-
+    private Long id;
     @JsonProperty("TYPE")
     private Integer type;
     @JsonProperty("NUMBEROFPLAY")
@@ -59,6 +43,9 @@ public class FirstQuarterDTO {
     private String comment;
     @JsonProperty("PLAYINFO")
     private String playinfo;
+    private boolean markAsFavourite;
+    private MatchDTO matchDTO;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -212,23 +199,50 @@ public class FirstQuarterDTO {
         this.additionalProperties.put(name, value);
     }
 
+    public boolean isMarkAsFavourite() {
+        return markAsFavourite;
+    }
+
+    public void setMarkAsFavourite(boolean markAsFavourite) {
+        this.markAsFavourite = markAsFavourite;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public MatchDTO getMatchDTO() {
+        return matchDTO;
+    }
+
+    public void setMatchDTO(MatchDTO matchDTO) {
+        this.matchDTO = matchDTO;
+    }
+
     @Override
     public String toString() {
-        return "FirstQuarter{" +
-                "type=" + type +
+        return "FirstQuarterDTO{" +
+                "id=" + id +
+                ", type=" + type +
                 ", numberofplay=" + numberofplay +
                 ", codeteam='" + codeteam + '\'' +
                 ", playerId='" + playerId + '\'' +
                 ", playtype='" + playtype + '\'' +
-                ", player=" + player +
-                ", team=" + team +
-                ", dorsal=" + dorsal +
+                ", player='" + player + '\'' +
+                ", team='" + team + '\'' +
+                ", dorsal='" + dorsal + '\'' +
                 ", minute=" + minute +
                 ", markertime='" + markertime + '\'' +
-                ", pointsA=" + pointsA +
-                ", pointsB=" + pointsB +
+                ", pointsA='" + pointsA + '\'' +
+                ", pointsB='" + pointsB + '\'' +
                 ", comment='" + comment + '\'' +
                 ", playinfo='" + playinfo + '\'' +
+                ", markAsFavourite=" + markAsFavourite +
+                ", matchDTO=" + matchDTO +
                 ", additionalProperties=" + additionalProperties +
                 '}';
     }

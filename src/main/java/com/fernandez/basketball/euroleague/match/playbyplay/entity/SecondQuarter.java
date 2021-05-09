@@ -37,4 +37,6 @@ public class SecondQuarter {
     private String playinfo;
     @ManyToOne(cascade = CascadeType.ALL)
     private Match match;
+    private boolean markAsFavourite;
+
 }
