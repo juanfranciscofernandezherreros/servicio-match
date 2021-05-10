@@ -87,7 +87,7 @@ public class PlayByPlayImpl implements PlayByPlayService{
             thirdQuarter.setMarkAsFavourite(true);
             thirdQuarterRepository.save(thirdQuarter);
         }
-        if(Objects.nonNull(markAsFavouriteDTO.getFirstQuarterDTO())){
+        if(Objects.nonNull(markAsFavouriteDTO.getForthQuarterDTO())){
             ForthQuarter forthQuarter = forthQuarterRepository.getOne(markAsFavouriteDTO.getForthQuarterDTO().getId());
             forthQuarter.setMarkAsFavourite(true);
             forthQuarterRepository.save(forthQuarter);
