@@ -4,6 +4,7 @@ import com.fernandez.basketball.commons.constants.UrlMapping;
 import com.fernandez.basketball.euroleague.match.games.dto.GamesDTO;
 import com.fernandez.basketball.euroleague.match.games.dto.GamesScrappingDTO;
 import com.fernandez.basketball.euroleague.match.games.service.GameService;
+import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -29,9 +30,9 @@ public class GamesController {
     }
 
     @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES)
-    public List<GamesScrappingDTO> saveGamesByTeamAndYear() {
-        log.info("[GamesController][saveGamesByTeamAndYear]");
-        return null;
+    public MatchDTO saveGamesByTeamAndYear(@RequestBody MatchDTO matchDTO) {
+        log.info("[GamesController][saveGamesByTeamAndYear] matchDTO={}" , matchDTO);
+        return gameService.save(matchDTO);
     }
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES)

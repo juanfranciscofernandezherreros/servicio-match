@@ -3,7 +3,7 @@ package com.fernandez.basketball.euroleague.match.playbyplay.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fernandez.basketball.commons.constants.UrlMapping;
 import com.fernandez.basketball.euroleague.match.common.repository.*;
-import com.fernandez.basketball.euroleague.match.playbyplay.adapter.MatchAdapter;
+import com.fernandez.basketball.euroleague.match.playbyplay.dto.ForthQuarterDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MarkAsFavouriteDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.*;
@@ -13,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
@@ -49,12 +48,6 @@ public class PlayByPlayImpl implements PlayByPlayService{
     }
 
     @Override
-    public Match save(MatchDTO saveMatch){
-        Match match = MatchAdapter.mapToEntity(saveMatch);
-        return matchRepository.save(match);
-    }
-
-    @Override
     public ResponseEntity<MatchDTO> download(String gamecode, String seasoncode) {
         RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -71,25 +64,36 @@ public class PlayByPlayImpl implements PlayByPlayService{
     }
 
     @Override
-    public void markAsFavourite(MarkAsFavouriteDTO markAsFavouriteDTO) {
+    public void markAsFavourite(MarkAsFavouriteDTO markAsFavouriteDTO,Long matchId) {
+        Match match = matchRepository.findById(matchId).get();
         if(Objects.nonNull(markAsFavouriteDTO.getFirstQuarterDTO())){
             FirstQuarter firstQuarter = firstQuarterRepository.getOne(markAsFavouriteDTO.getFirstQuarterDTO().getId());
             firstQuarter.setMarkAsFavourite(true);
+            firstQuarter.setMatch(match);
             firstQuarterRepository.save(firstQuarter);
         }
         if(Objects.nonNull(markAsFavouriteDTO.getSecondQuarterDTO())){
             SecondQuarter secondQuarter = secondQuarterRepository.getOne(markAsFavouriteDTO.getSecondQuarterDTO().getId());
             secondQuarter.setMarkAsFavourite(true);
+            secondQuarter.setMatch(match);
             secondQuarterRepository.save(secondQuarter);
         }
         if(Objects.nonNull(markAsFavouriteDTO.getThirdQuarterDTO())){
             ThirdQuarter thirdQuarter = thirdQuarterRepository.getOne(markAsFavouriteDTO.getThirdQuarterDTO().getId());
             thirdQuarter.setMarkAsFavourite(true);
+            thirdQuarter.setMatch(match);
             thirdQuarterRepository.save(thirdQuarter);
         }
         if(Objects.nonNull(markAsFavouriteDTO.getForthQuarterDTO())){
-            ForthQuarter forthQuarter = forthQuarterRepository.getOne(markAsFavouriteDTO.getForthQuarterDTO().getId());
-            forthQuarter.setMarkAsFavourite(true);
+            ForthQuarter forthQuarter = null;
+            ForthQuarterDTO forthQuarterDTO = markAsFavouriteDTO.getForthQuarterDTO();
+            if(Objects.nonNull(forthQuarterDTO.getId())){
+                forthQuarter = forthQuarterRepository.getOne(forthQuarterDTO.getId());
+            }else{
+                forthQuarter = modelMapper.map(forthQuarterDTO,ForthQuarter.class);
+            }
+            forthQuarter.setMarkAsFavourite(markAsFavouriteDTO.getForthQuarterDTO().isMarkAsFavourite());
+            forthQuarter.setMatch(match);
             forthQuarterRepository.save(forthQuarter);
         }
         if(Objects.nonNull(markAsFavouriteDTO.getExtraTimeDTO())){

@@ -22,16 +22,10 @@ public class PlayByPlayController {
 
     private final PlayByPlayService playByPlayService;
 
-    @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY)
-    public Match save(@RequestBody MatchDTO match) {
-        log.info("[PlayByPlayController][save] match={}" , match);
-        return playByPlayService.save(match);
-    }
-
-    @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.FAVOURITE + UrlMapping.PLAYBYPLAY)
-    public void markPlayByPlayAsFavourite(@RequestBody MarkAsFavouriteDTO markAsFavouriteDTO) {
-        log.info("[PlayByPlayController][markPlayByPlayAsFavourite] markAsFavouriteDTO={}" , markAsFavouriteDTO);
-        playByPlayService.markAsFavourite(markAsFavouriteDTO);
+    @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.FAVOURITE + UrlMapping.PLAYBYPLAY + "/{matchId}")
+    public void markPlayByPlayAsFavourite(@RequestBody MarkAsFavouriteDTO markAsFavouriteDTO , @PathVariable Long matchId) {
+        log.info("[PlayByPlayController][markPlayByPlayAsFavourite] markAsFavouriteDTO={} matchId={}" , markAsFavouriteDTO , matchId);
+        playByPlayService.markAsFavourite(markAsFavouriteDTO,matchId);
     }
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + "/{fileName}")

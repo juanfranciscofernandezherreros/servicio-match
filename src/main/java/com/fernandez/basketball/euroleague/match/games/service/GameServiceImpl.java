@@ -3,6 +3,8 @@ package com.fernandez.basketball.euroleague.match.games.service;
 import com.fernandez.basketball.euroleague.match.common.repository.MatchRepository;
 import com.fernandez.basketball.euroleague.match.games.dto.GamesDTO;
 import com.fernandez.basketball.euroleague.match.games.dto.GamesScrappingDTO;
+import com.fernandez.basketball.euroleague.match.playbyplay.adapter.MatchAdapter;
+import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
 import com.fernandez.basketball.utils.DocumenUtils;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,12 @@ public class GameServiceImpl implements GameService{
     private final MatchRepository matchRepository;
 
     private final ModelMapper modelMapper = new ModelMapper();
+
+    @Override
+    public MatchDTO save(MatchDTO matchDTO) {
+        Match match = MatchAdapter.mapToEntity(matchDTO);
+        return modelMapper.map(matchRepository.save(match),MatchDTO.class);
+    }
 
     @Override
     public List<GamesScrappingDTO> findAllGamesByTeamAndYear(String clubcode, String seasoncode) {
