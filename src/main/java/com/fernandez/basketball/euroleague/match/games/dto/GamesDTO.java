@@ -12,11 +12,9 @@ import lombok.ToString;
 public class GamesDTO {
 
     private Long id;
-    private Boolean live;
     private String teamA;
     private String teamB;
     private String codeTeamA;
     private String codeTeamB;
-    private Integer actualQuarter;
 
 }
