@@ -3,10 +3,12 @@ package com.fernandez.basketball.euroleague.match.games.service;
 import com.fernandez.basketball.euroleague.match.common.repository.MatchRepository;
 import com.fernandez.basketball.euroleague.match.games.dto.GamesDTO;
 import com.fernandez.basketball.euroleague.match.games.dto.GamesScrappingDTO;
+import com.fernandez.basketball.euroleague.match.header.service.HeaderService;
 import com.fernandez.basketball.euroleague.match.playbyplay.adapter.MatchAdapter;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
 import com.fernandez.basketball.utils.DocumenUtils;
+import com.sun.jndi.toolkit.url.Uri;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
@@ -16,8 +18,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -25,6 +31,8 @@ import java.util.List;
 public class GameServiceImpl implements GameService{
 
     private final MatchRepository matchRepository;
+
+    private final HeaderService headerService;
 
     private final ModelMapper modelMapper = new ModelMapper();
 
@@ -35,7 +43,7 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public List<GamesScrappingDTO> findAllGamesByTeamAndYear(String clubcode, String seasoncode) {
+    public List<GamesScrappingDTO> findAllGamesByTeamAndYear(String clubcode, String seasoncode) throws MalformedURLException, UnsupportedEncodingException {
         String url = "https://www.euroleague.net/competition/teams/showteam?clubcode="+clubcode+"&seasoncode=E"+seasoncode+"#!games";
         List<GamesScrappingDTO> gamesScrappingDTOList = new ArrayList<>();
         // Compruebo si me da un 200 al hacer la petición
@@ -66,7 +74,7 @@ public class GameServiceImpl implements GameService{
                 teamPhaseGameScoreList.add(teamPhaseGameScore.text());
             }
             for (Element linkMatch : linksMatchContainer) {
-                linksMatchList.add("https://www.euroleague.net".concat(linkMatch.attr("href")));
+                linksMatchList.add(linkMatch.attr("href"));
             }
             for(int i=0;i<gameNumberList.size();i++){
                 GamesScrappingDTO gamesScrappingDTO = new GamesScrappingDTO();
@@ -74,7 +82,9 @@ public class GameServiceImpl implements GameService{
                 gamesScrappingDTO.setWinLose(winLoseList.get(i));
                 gamesScrappingDTO.setVersus(versusList.get(i));
                 gamesScrappingDTO.setTeamPhaseGameScore(teamPhaseGameScoreList.get(i));
-                gamesScrappingDTO.setMatchLink(linksMatchList.get(i));
+                gamesScrappingDTO.setMatchLink("https://www.euroleague.net".concat(linksMatchList.get(i)));
+                String gameCode = linksMatchList.get(i).split("&")[0].subSequence(32,linksMatchList.get(i).split("&")[0].length()).toString();
+                gamesScrappingDTO.setHeader(headerService.findInfoMatch(gameCode,seasoncode).getBody());
                 gamesScrappingDTOList.add(gamesScrappingDTO);
             }
         }else{
