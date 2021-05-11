@@ -3,9 +3,7 @@ package com.fernandez.basketball.euroleague.match.playbyplay.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fernandez.basketball.commons.constants.UrlMapping;
 import com.fernandez.basketball.euroleague.match.common.repository.*;
-import com.fernandez.basketball.euroleague.match.playbyplay.dto.ForthQuarterDTO;
-import com.fernandez.basketball.euroleague.match.playbyplay.dto.MarkAsFavouriteDTO;
-import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
+import com.fernandez.basketball.euroleague.match.playbyplay.dto.*;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -67,20 +65,38 @@ public class PlayByPlayImpl implements PlayByPlayService{
     public void markAsFavourite(MarkAsFavouriteDTO markAsFavouriteDTO,Long matchId) {
         Match match = matchRepository.findById(matchId).get();
         if(Objects.nonNull(markAsFavouriteDTO.getFirstQuarterDTO())){
-            FirstQuarter firstQuarter = firstQuarterRepository.getOne(markAsFavouriteDTO.getFirstQuarterDTO().getId());
-            firstQuarter.setMarkAsFavourite(true);
+            FirstQuarter firstQuarter = null;
+            FirstQuarterDTO firstQuarterDTO = markAsFavouriteDTO.getFirstQuarterDTO();
+            if(Objects.nonNull(firstQuarterDTO.getId())){
+                firstQuarter = firstQuarterRepository.getOne(firstQuarterDTO.getId());
+            }else{
+                firstQuarter = modelMapper.map(firstQuarterDTO,FirstQuarter.class);
+            }
+            firstQuarter.setMarkAsFavourite(markAsFavouriteDTO.getFirstQuarterDTO().isMarkAsFavourite());
             firstQuarter.setMatch(match);
             firstQuarterRepository.save(firstQuarter);
         }
         if(Objects.nonNull(markAsFavouriteDTO.getSecondQuarterDTO())){
-            SecondQuarter secondQuarter = secondQuarterRepository.getOne(markAsFavouriteDTO.getSecondQuarterDTO().getId());
-            secondQuarter.setMarkAsFavourite(true);
+            SecondQuarter secondQuarter = null;
+            SecondQuarterDTO secondQuarterDTO = markAsFavouriteDTO.getSecondQuarterDTO();
+            if(Objects.nonNull(secondQuarterDTO.getId())){
+                secondQuarter = secondQuarterRepository.getOne(secondQuarterDTO.getId());
+            }else{
+                secondQuarter = modelMapper.map(secondQuarterDTO,SecondQuarter.class);
+            }
+            secondQuarter.setMarkAsFavourite(markAsFavouriteDTO.getSecondQuarterDTO().isMarkAsFavourite());
             secondQuarter.setMatch(match);
             secondQuarterRepository.save(secondQuarter);
         }
         if(Objects.nonNull(markAsFavouriteDTO.getThirdQuarterDTO())){
-            ThirdQuarter thirdQuarter = thirdQuarterRepository.getOne(markAsFavouriteDTO.getThirdQuarterDTO().getId());
-            thirdQuarter.setMarkAsFavourite(true);
+            ThirdQuarter thirdQuarter = null;
+            ThirdQuarterDTO thirdQuarterDTO = markAsFavouriteDTO.getThirdQuarterDTO();
+            if(Objects.nonNull(thirdQuarterDTO.getId())){
+                thirdQuarter = thirdQuarterRepository.getOne(thirdQuarterDTO.getId());
+            }else{
+                thirdQuarter = modelMapper.map(thirdQuarterDTO,ThirdQuarter.class);
+            }
+            thirdQuarter.setMarkAsFavourite(markAsFavouriteDTO.getThirdQuarterDTO().isMarkAsFavourite());
             thirdQuarter.setMatch(match);
             thirdQuarterRepository.save(thirdQuarter);
         }
@@ -97,8 +113,15 @@ public class PlayByPlayImpl implements PlayByPlayService{
             forthQuarterRepository.save(forthQuarter);
         }
         if(Objects.nonNull(markAsFavouriteDTO.getExtraTimeDTO())){
-            ExtraTime extraTime = extraTimeRepository.getOne(markAsFavouriteDTO.getExtraTimeDTO().getId());
-            extraTime.setMarkAsFavourite(true);
+            ExtraTime extraTime = null;
+            ExtraTimeDTO extraTimeDTO = markAsFavouriteDTO.getExtraTimeDTO();
+            if(Objects.nonNull(extraTimeDTO.getId())){
+                extraTime = extraTimeRepository.getOne(extraTimeDTO.getId());
+            }else{
+                extraTime = modelMapper.map(extraTimeDTO,ExtraTime.class);
+            }
+            extraTime.setMarkAsFavourite(markAsFavouriteDTO.getForthQuarterDTO().isMarkAsFavourite());
+            extraTime.setMatch(match);
             extraTimeRepository.save(extraTime);
         }
     }
