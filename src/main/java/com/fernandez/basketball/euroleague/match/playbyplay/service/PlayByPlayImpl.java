@@ -3,6 +3,7 @@ package com.fernandez.basketball.euroleague.match.playbyplay.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fernandez.basketball.commons.constants.UrlMapping;
 import com.fernandez.basketball.euroleague.match.common.repository.*;
+import com.fernandez.basketball.euroleague.match.playbyplay.adapter.MatchAdapter;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.*;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.*;
 import lombok.RequiredArgsConstructor;
@@ -59,6 +60,12 @@ public class PlayByPlayImpl implements PlayByPlayService{
     public MatchDTO findAllPlayByPlayFromMatch(Long matchId) {
         Match match = matchRepository.findById(matchId).get();
         return modelMapper.map(match,MatchDTO.class);
+    }
+
+    @Override
+    public Match save(MatchDTO saveMatch){
+        Match match = MatchAdapter.mapToEntity(saveMatch);
+        return matchRepository.save(match);
     }
 
     @Override
