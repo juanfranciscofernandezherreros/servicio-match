@@ -18,13 +18,12 @@ public class YearsServiceImpl implements YearService{
     @Override
     public List<String> findAll() {
         List<String> yearsList = new ArrayList<>();
-        String url = "https://www.euroleague.net/competition/teams";
+        String url = "https://www.euroleague.net/main/standings";
         Document document = DocumenUtils.getHtmlDocument(url);
-        Elements divs = document.select(".seasons-selector");
-        for (Element div : divs){
-            for(Element child : div.children()){
-                yearsList.add(child.text().substring(11,15));
-            }
+        Element div = document.select("div.styled-select:nth-child(1) > select:nth-child(1)").first();
+        Elements elements = div.children();
+        for (Element element : elements) {
+            yearsList.add(element.text().substring(0,4));
         }
         return yearsList;
     }

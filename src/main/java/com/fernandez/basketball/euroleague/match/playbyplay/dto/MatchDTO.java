@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fernandez.basketball.euroleague.match.header.dto.Header;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("jsonschema2pojo")
@@ -39,6 +40,8 @@ public class MatchDTO {
     @JsonProperty("ExtraTime")
     private List<ExtraTimeDTO> extraTime = null;
     private boolean markAsFavourite;
+    private Header header;
+    private String gameCode;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -178,6 +181,26 @@ public class MatchDTO {
         this.id = id;
     }
 
+    public Header getHeader() {
+        return header;
+    }
+
+    public void setHeader(Header header) {
+        this.header = header;
+    }
+
+    public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+        this.additionalProperties = additionalProperties;
+    }
+
+    public String getGameCode() {
+        return gameCode;
+    }
+
+    public void setGameCode(String gameCode) {
+        this.gameCode = gameCode;
+    }
+
     @Override
     public String toString() {
         return "MatchDTO{" +
@@ -194,6 +217,8 @@ public class MatchDTO {
                 ", forthQuarter=" + forthQuarter +
                 ", extraTime=" + extraTime +
                 ", markAsFavourite=" + markAsFavourite +
+                ", header=" + header +
+                ", gameCode='" + gameCode + '\'' +
                 ", additionalProperties=" + additionalProperties +
                 '}';
     }

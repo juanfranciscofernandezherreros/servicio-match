@@ -17,4 +17,6 @@ public class GamesScrappingDTO {
     private String teamPhaseGameScore;
     private String matchLink;
     private Header header;
+    private String gameCode;
+    private String seassonCode;
 }

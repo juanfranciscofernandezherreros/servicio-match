@@ -1,6 +1,7 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.controller;
 
 import com.fernandez.basketball.commons.constants.UrlMapping;
+import com.fernandez.basketball.euroleague.match.header.dto.Header;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MarkAsFavouriteDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
@@ -45,11 +46,20 @@ public class PlayByPlayController {
         log.info("[PlayByPlayController][downloadPlayByPlay]");
         return playByPlayService.download(gamecode,seasoncode);
     }
-
-    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.SYNC + UrlMapping.PLAYBYPLAY + "/{gamecode}"+ UrlMapping.DOWNLOAD + "/{seasoncode}")
-    public Match syncWithDatabase(@PathVariable String gamecode , @PathVariable String seasoncode) {
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.SYNC + UrlMapping.PLAYBYPLAY)
+    public Match syncWithDatabase(@RequestParam String gamecode ,
+                                  @RequestParam String seasoncode,
+                                  @RequestParam String phase,
+                                  @RequestParam String date,
+                                  @RequestParam String round) {
         log.info("[PlayByPlayController][downloadPlayByPlay]");
         ResponseEntity<MatchDTO> matchDTO = playByPlayService.download(gamecode,seasoncode);
+        Header header = new Header();
+        header.setPhase(phase);
+        header.setDate(date);
+        header.setRound(round);
+        matchDTO.getBody().setGameCode(gamecode);
+        matchDTO.getBody().setHeader(header);
         return playByPlayService.save(matchDTO.getBody());
     }
 

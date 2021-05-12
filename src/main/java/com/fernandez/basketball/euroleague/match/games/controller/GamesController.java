@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -26,9 +27,11 @@ public class GamesController {
     private final GameService gameService;
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES + UrlMapping.CLUBCODE + "/{clubcode}" + UrlMapping.SEASSONCODE + "/{seasoncode}")
-    public List<GamesScrappingDTO> findAllGamesByTeamAndYear(@PathVariable String clubcode , @PathVariable String seasoncode) throws MalformedURLException, UnsupportedEncodingException {
+    public Page<GamesScrappingDTO> findAllGamesByTeamAndYear(@PathVariable String clubcode ,
+                                                             @PathVariable String seasoncode ,
+                                                             final @PageableDefault(size = 40) Pageable pageable) throws MalformedURLException, UnsupportedEncodingException {
         log.info("[GamesController][findAllGamesByTeamAndYear] clubcode={} seasoncode={}" , clubcode , seasoncode);
-        return gameService.findAllGamesByTeamAndYear(clubcode,seasoncode);
+        return gameService.findAllGamesByTeamAndYear(clubcode,seasoncode,pageable);
     }
 
     @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES)

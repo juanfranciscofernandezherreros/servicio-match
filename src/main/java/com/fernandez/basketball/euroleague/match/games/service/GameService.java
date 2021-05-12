@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 public interface GameService {
-    public MatchDTO save(MatchDTO matchDTO);
-    public List<GamesScrappingDTO> findAllGamesByTeamAndYear(String clubode , String seasoncode) throws MalformedURLException, UnsupportedEncodingException;
-    public Page<GamesDTO> findAllGames (final Pageable pageable);
+    MatchDTO save(MatchDTO matchDTO);
+    Page<GamesScrappingDTO> findAllGamesByTeamAndYear(String clubode , String seasoncode , final Pageable pageable) throws MalformedURLException, UnsupportedEncodingException;
+    Page<GamesDTO> findAllGames (final Pageable pageable);
 }

@@ -18,6 +18,10 @@ public class MatchAdapter {
         match.setCodeTeamB(matchDTO.getCodeTeamB());
         match.setActualQuarter(matchDTO.getActualQuarter());
         match.setId(matchDTO.getId());
+        match.setPhase(matchDTO.getHeader().getPhase());
+        match.setDate(matchDTO.getHeader().getDate());
+        match.setRound(matchDTO.getHeader().getRound());
+        match.setGameCode(matchDTO.getGameCode());
         List<FirstQuarter> firstQuarterList = new ArrayList<>();
         List<SecondQuarter> secondQuarterList = new ArrayList<>();
         List<ThirdQuarter> thirdQuarterList = new ArrayList<>();

@@ -16,9 +16,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -43,7 +45,7 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public List<GamesScrappingDTO> findAllGamesByTeamAndYear(String clubcode, String seasoncode) throws MalformedURLException, UnsupportedEncodingException {
+    public Page<GamesScrappingDTO> findAllGamesByTeamAndYear(String clubcode, String seasoncode,Pageable pageable) throws MalformedURLException, UnsupportedEncodingException {
         String url = "https://www.euroleague.net/competition/teams/showteam?clubcode="+clubcode+"&seasoncode=E"+seasoncode+"#!games";
         List<GamesScrappingDTO> gamesScrappingDTOList = new ArrayList<>();
         // Compruebo si me da un 200 al hacer la petición
@@ -84,13 +86,15 @@ public class GameServiceImpl implements GameService{
                 gamesScrappingDTO.setTeamPhaseGameScore(teamPhaseGameScoreList.get(i));
                 gamesScrappingDTO.setMatchLink("https://www.euroleague.net".concat(linksMatchList.get(i)));
                 String gameCode = linksMatchList.get(i).split("&")[0].subSequence(32,linksMatchList.get(i).split("&")[0].length()).toString();
+                gamesScrappingDTO.setGameCode(gameCode);
+                gamesScrappingDTO.setSeassonCode(seasoncode);
                 gamesScrappingDTO.setHeader(headerService.findInfoMatch(gameCode,seasoncode).getBody());
                 gamesScrappingDTOList.add(gamesScrappingDTO);
             }
         }else{
             log.error("El Status Code no es OK es: "+DocumenUtils.getStatusConnectionCode(url));
         }
-        return gamesScrappingDTOList;
+        return convertList2Page(gamesScrappingDTOList,pageable);
     }
 
     @Override
@@ -100,6 +104,19 @@ public class GameServiceImpl implements GameService{
 
     private GamesDTO mapFromEntityToDto (final Match match ) {
         return modelMapper.map(match, GamesDTO.class);
+    }
+
+    private Page convertList2Page(final List list, final Pageable pageable) {
+        return getPage(list, pageable);
+    }
+
+    @NotNull
+    static Page getPage(final List list, final Pageable pageable) {
+        int startIndex = (int) pageable.getOffset();
+        int endIndex = (int) ((pageable.getOffset() + pageable.getPageSize()) > list.size() ? list.size()
+                : pageable.getOffset() + pageable.getPageSize());
+        List subList = list.subList(startIndex, endIndex);
+        return new PageImpl(subList, pageable, list.size());
     }
 
 }
