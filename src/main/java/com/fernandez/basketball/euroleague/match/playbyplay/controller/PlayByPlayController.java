@@ -41,11 +41,6 @@ public class PlayByPlayController {
         return playByPlayService.findAllPlayByPlayFromMatch(matchId);
     }
 
-    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + "/{gamecode}"+ UrlMapping.DOWNLOAD + "/{seasoncode}")
-    public  ResponseEntity<MatchDTO> downloadPlayByPlay(@PathVariable String gamecode , @PathVariable String seasoncode) {
-        log.info("[PlayByPlayController][downloadPlayByPlay]");
-        return playByPlayService.download(gamecode,seasoncode);
-    }
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.SYNC + UrlMapping.PLAYBYPLAY)
     public Match syncWithDatabase(@RequestParam String gamecode ,
                                   @RequestParam String seasoncode,
