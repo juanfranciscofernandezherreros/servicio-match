@@ -25,7 +25,7 @@ public class PlayByPlayController {
 
     @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.FAVOURITE + UrlMapping.PLAYBYPLAY + "/{matchId}")
     public void markPlayByPlayAsFavourite(@RequestBody MarkAsFavouriteDTO markAsFavouriteDTO , @PathVariable Long matchId) {
-        log.info("[PlayByPlayController][markPlayByPlayAsFavourite] markAsFavouriteDTO={} matchId={}" , markAsFavouriteDTO , matchId);
+        log.info("[PlayByPlayController][markPlayByPlayAsFavourite] markAsFavouriteDTO={}" , markAsFavouriteDTO , matchId);
         playByPlayService.markAsFavourite(markAsFavouriteDTO,matchId);
     }
 
@@ -35,14 +35,17 @@ public class PlayByPlayController {
         return playByPlayService.findAllMovementsFromMatchInJsonFile(fileName);
     }
 
-    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.MATCH + "/{matchId}")
-    public MatchDTO findAllPlayByPlayFromMatch(@PathVariable Long matchId) {
-        log.info("[PlayByPlayController][findAllPlayByPlayFromMatch] matchId={}" , matchId);
-        return playByPlayService.findAllPlayByPlayFromMatch(matchId);
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + UrlMapping.DOWNLOAD)
+    public ResponseEntity<MatchDTO> downloadPlayByPlay(@RequestParam String gamecode ,
+                                                       @RequestParam String seasoncode) {
+        log.info("[PlayByPlayController][downloadPlayByPlay] gamecode={} seasoncode={}",gamecode,seasoncode);
+        return playByPlayService.download(gamecode,seasoncode);
     }
 
+
+
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.SYNC + UrlMapping.PLAYBYPLAY)
-    public Match syncWithDatabase(@RequestParam String gamecode ,
+    public MatchDTO syncWithDatabase(@RequestParam String gamecode ,
                                   @RequestParam String seasoncode,
                                   @RequestParam String phase,
                                   @RequestParam String date,

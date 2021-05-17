@@ -29,15 +29,15 @@ public class MatchDTO {
     private String codeTeamB;
     @JsonProperty("ActualQuarter")
     private Integer actualQuarter;
-    @JsonProperty("FirstQuarter")
+    @JsonProperty("firstQuarterDTO")
     private List<FirstQuarterDTO> firstQuarter = null;
-    @JsonProperty("SecondQuarter")
+    @JsonProperty("secondQuarterDTO")
     private List<SecondQuarterDTO> secondQuarter = null;
-    @JsonProperty("ThirdQuarter")
+    @JsonProperty("thirdQuarterDTO")
     private List<ThirdQuarterDTO> thirdQuarter = null;
-    @JsonProperty("ForthQuarter")
+    @JsonProperty("forthQuarterDTO")
     private List<ForthQuarterDTO> forthQuarter = null;
-    @JsonProperty("ExtraTime")
+    @JsonProperty("extraTimeDTO")
     private List<ExtraTimeDTO> extraTime = null;
     private boolean markAsFavourite;
     private Header header;
@@ -105,7 +105,7 @@ public class MatchDTO {
         this.actualQuarter = actualQuarter;
     }
 
-    @JsonProperty("FirstQuarter")
+    @JsonProperty("firstQuarterDTO")
     public List<FirstQuarterDTO> getFirstQuarter() {
         return firstQuarter;
     }
@@ -115,7 +115,7 @@ public class MatchDTO {
         this.firstQuarter = firstQuarter;
     }
 
-    @JsonProperty("SecondQuarter")
+    @JsonProperty("secondQuarterDTO")
     public List<SecondQuarterDTO> getSecondQuarter() {
         return secondQuarter;
     }
@@ -125,7 +125,7 @@ public class MatchDTO {
         this.secondQuarter = secondQuarter;
     }
 
-    @JsonProperty("ThirdQuarter")
+    @JsonProperty("thirdQuarterDTO")
     public List<ThirdQuarterDTO> getThirdQuarter() {
         return thirdQuarter;
     }
@@ -135,7 +135,7 @@ public class MatchDTO {
         this.thirdQuarter = thirdQuarter;
     }
 
-    @JsonProperty("ForthQuarter")
+    @JsonProperty("forthQuarterDTO")
     public List<ForthQuarterDTO> getForthQuarter() {
         return forthQuarter;
     }
@@ -145,7 +145,7 @@ public class MatchDTO {
         this.forthQuarter = forthQuarter;
     }
 
-    @JsonProperty("ExtraTime")
+    @JsonProperty("extraTimeDTO")
     public List<ExtraTimeDTO> getExtraTime() {
         return extraTime;
     }

@@ -63,73 +63,13 @@ public class PlayByPlayImpl implements PlayByPlayService{
     }
 
     @Override
-    public Match save(MatchDTO saveMatch){
+    public MatchDTO save(MatchDTO saveMatch){
         Match match = MatchAdapter.mapToEntity(saveMatch);
-        return matchRepository.save(match);
+        return modelMapper.map(matchRepository.save(match),MatchDTO.class);
     }
 
     @Override
-    public void markAsFavourite(MarkAsFavouriteDTO markAsFavouriteDTO,Long matchId) {
-        Match match = matchRepository.findById(matchId).get();
-        if(Objects.nonNull(markAsFavouriteDTO.getFirstQuarterDTO())){
-            FirstQuarter firstQuarter = null;
-            FirstQuarterDTO firstQuarterDTO = markAsFavouriteDTO.getFirstQuarterDTO();
-            if(Objects.nonNull(firstQuarterDTO.getId())){
-                firstQuarter = firstQuarterRepository.getOne(firstQuarterDTO.getId());
-            }else{
-                firstQuarter = modelMapper.map(firstQuarterDTO,FirstQuarter.class);
-            }
-            firstQuarter.setMarkAsFavourite(markAsFavouriteDTO.getFirstQuarterDTO().isMarkAsFavourite());
-            firstQuarter.setMatch(match);
-            firstQuarterRepository.save(firstQuarter);
-        }
-        if(Objects.nonNull(markAsFavouriteDTO.getSecondQuarterDTO())){
-            SecondQuarter secondQuarter = null;
-            SecondQuarterDTO secondQuarterDTO = markAsFavouriteDTO.getSecondQuarterDTO();
-            if(Objects.nonNull(secondQuarterDTO.getId())){
-                secondQuarter = secondQuarterRepository.getOne(secondQuarterDTO.getId());
-            }else{
-                secondQuarter = modelMapper.map(secondQuarterDTO,SecondQuarter.class);
-            }
-            secondQuarter.setMarkAsFavourite(markAsFavouriteDTO.getSecondQuarterDTO().isMarkAsFavourite());
-            secondQuarter.setMatch(match);
-            secondQuarterRepository.save(secondQuarter);
-        }
-        if(Objects.nonNull(markAsFavouriteDTO.getThirdQuarterDTO())){
-            ThirdQuarter thirdQuarter = null;
-            ThirdQuarterDTO thirdQuarterDTO = markAsFavouriteDTO.getThirdQuarterDTO();
-            if(Objects.nonNull(thirdQuarterDTO.getId())){
-                thirdQuarter = thirdQuarterRepository.getOne(thirdQuarterDTO.getId());
-            }else{
-                thirdQuarter = modelMapper.map(thirdQuarterDTO,ThirdQuarter.class);
-            }
-            thirdQuarter.setMarkAsFavourite(markAsFavouriteDTO.getThirdQuarterDTO().isMarkAsFavourite());
-            thirdQuarter.setMatch(match);
-            thirdQuarterRepository.save(thirdQuarter);
-        }
-        if(Objects.nonNull(markAsFavouriteDTO.getForthQuarterDTO())){
-            ForthQuarter forthQuarter = null;
-            ForthQuarterDTO forthQuarterDTO = markAsFavouriteDTO.getForthQuarterDTO();
-            if(Objects.nonNull(forthQuarterDTO.getId())){
-                forthQuarter = forthQuarterRepository.getOne(forthQuarterDTO.getId());
-            }else{
-                forthQuarter = modelMapper.map(forthQuarterDTO,ForthQuarter.class);
-            }
-            forthQuarter.setMarkAsFavourite(markAsFavouriteDTO.getForthQuarterDTO().isMarkAsFavourite());
-            forthQuarter.setMatch(match);
-            forthQuarterRepository.save(forthQuarter);
-        }
-        if(Objects.nonNull(markAsFavouriteDTO.getExtraTimeDTO())){
-            ExtraTime extraTime = null;
-            ExtraTimeDTO extraTimeDTO = markAsFavouriteDTO.getExtraTimeDTO();
-            if(Objects.nonNull(extraTimeDTO.getId())){
-                extraTime = extraTimeRepository.getOne(extraTimeDTO.getId());
-            }else{
-                extraTime = modelMapper.map(extraTimeDTO,ExtraTime.class);
-            }
-            extraTime.setMarkAsFavourite(markAsFavouriteDTO.getForthQuarterDTO().isMarkAsFavourite());
-            extraTime.setMatch(match);
-            extraTimeRepository.save(extraTime);
-        }
+    public void markAsFavourite(MarkAsFavouriteDTO matchDTO,Long matchId) {
+
     }
 }

@@ -1,5 +1,6 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.dto;
 
+
 public class MarkAsFavouriteDTO {
 
     private FirstQuarterDTO firstQuarterDTO;
@@ -7,7 +8,6 @@ public class MarkAsFavouriteDTO {
     private ThirdQuarterDTO thirdQuarterDTO;
     private ForthQuarterDTO forthQuarterDTO;
     private ExtraTimeDTO extraTimeDTO;
-
 
     public FirstQuarterDTO getFirstQuarterDTO() {
         return firstQuarterDTO;
@@ -52,7 +52,7 @@ public class MarkAsFavouriteDTO {
     @Override
     public String toString() {
         return "MarkAsFavouriteDTO{" +
-                ", firstQuarterDTO=" + firstQuarterDTO +
+                "firstQuarterDTO=" + firstQuarterDTO +
                 ", secondQuarterDTO=" + secondQuarterDTO +
                 ", thirdQuarterDTO=" + thirdQuarterDTO +
                 ", forthQuarterDTO=" + forthQuarterDTO +
