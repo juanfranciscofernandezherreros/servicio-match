@@ -2,9 +2,9 @@ package com.fernandez.basketball.euroleague.match.playbyplay.controller;
 
 import com.fernandez.basketball.commons.constants.UrlMapping;
 import com.fernandez.basketball.euroleague.match.header.dto.Header;
+import com.fernandez.basketball.euroleague.match.header.service.HeaderService;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MarkAsFavouriteDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
-import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
 import com.fernandez.basketball.euroleague.match.playbyplay.service.PlayByPlayService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +23,12 @@ public class PlayByPlayController {
 
     private final PlayByPlayService playByPlayService;
 
-    @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.FAVOURITE + UrlMapping.PLAYBYPLAY + "/{matchId}")
-    public void markPlayByPlayAsFavourite(@RequestBody MarkAsFavouriteDTO markAsFavouriteDTO , @PathVariable Long matchId) {
-        log.info("[PlayByPlayController][markPlayByPlayAsFavourite] markAsFavouriteDTO={}" , markAsFavouriteDTO , matchId);
-        playByPlayService.markAsFavourite(markAsFavouriteDTO,matchId);
+    private final HeaderService headerService;
+
+    @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.FAVOURITE + UrlMapping.PLAYBYPLAY)
+    public ResponseEntity<MarkAsFavouriteDTO> markPlayByPlayAsFavourite(@RequestBody MarkAsFavouriteDTO markAsFavouriteDTO) {
+        log.info("[PlayByPlayController][markPlayByPlayAsFavourite] markAsFavouriteDTO={}" ,markAsFavouriteDTO);
+        return ResponseEntity.ok(playByPlayService.markAsFavourite(markAsFavouriteDTO));
     }
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + "/{fileName}")
@@ -36,28 +38,23 @@ public class PlayByPlayController {
     }
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + UrlMapping.DOWNLOAD)
-    public ResponseEntity<MatchDTO> downloadPlayByPlay(@RequestParam String gamecode ,
-                                                       @RequestParam String seasoncode) {
-        log.info("[PlayByPlayController][downloadPlayByPlay] gamecode={} seasoncode={}",gamecode,seasoncode);
-        return playByPlayService.download(gamecode,seasoncode);
+    public ResponseEntity<MatchDTO> downloadWitouthSync(@RequestParam String gamecode ,
+                                                       @RequestParam String seasoncode) throws IOException {
+        log.info("[PlayByPlayController][downloadWitouthSync] gamecode={} seasoncode={}",gamecode,seasoncode);
+        ResponseEntity<MatchDTO> matchDTO = playByPlayService.downloadWitouthSync(gamecode,seasoncode);
+        ResponseEntity<Header> header = headerService.findInfoMatch(gamecode,seasoncode);
+        matchDTO.getBody().setHeader(header.getBody());
+        return matchDTO;
     }
 
 
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.SYNC + UrlMapping.PLAYBYPLAY)
-    public MatchDTO syncWithDatabase(@RequestParam String gamecode ,
-                                  @RequestParam String seasoncode,
-                                  @RequestParam String phase,
-                                  @RequestParam String date,
-                                  @RequestParam String round) {
+    public MatchDTO syncWithDatabase(@RequestParam String gamecode , @RequestParam String seasoncode) throws IOException {
         log.info("[PlayByPlayController][downloadPlayByPlay]");
-        ResponseEntity<MatchDTO> matchDTO = playByPlayService.download(gamecode,seasoncode);
-        Header header = new Header();
-        header.setPhase(phase);
-        header.setDate(date);
-        header.setRound(round);
-        matchDTO.getBody().setGameCode(gamecode);
-        matchDTO.getBody().setHeader(header);
+        ResponseEntity<MatchDTO> matchDTO = playByPlayService.downloadWitouthSync(gamecode,seasoncode);
+        ResponseEntity<Header> header = headerService.findInfoMatch(gamecode,seasoncode);
+        matchDTO.getBody().setHeader(header.getBody());
         return playByPlayService.save(matchDTO.getBody());
     }
 

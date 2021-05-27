@@ -35,6 +35,7 @@ public class Match {
     private String date;
     private String round;
     private String gameCode;
+    private String seassonCode;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="match_id")
     @JsonBackReference

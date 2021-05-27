@@ -9,7 +9,21 @@ import java.util.Objects;
 
 public class MatchAdapter {
 
-    public static Match mapToEntity(MatchDTO matchDTO){
+    public static Match mapToEntityFromMarkAsFavourite(MarkAsFavouriteDTO markAsFavouriteDTO) {
+        Match match = new Match();
+        match.setLive(markAsFavouriteDTO.getHeaderDTO().getLive());
+        match.setTeamA(markAsFavouriteDTO.getHeaderDTO().getTeamA());
+        match.setTeamB(markAsFavouriteDTO.getHeaderDTO().getTeamB());
+        match.setCodeTeamA(markAsFavouriteDTO.getHeaderDTO().getCodeTeamA());
+        match.setCodeTeamB(markAsFavouriteDTO.getHeaderDTO().getCodeTeamB());
+        match.setPhase(markAsFavouriteDTO.getHeaderDTO().getPhase());
+        match.setDate(markAsFavouriteDTO.getHeaderDTO().getDate());
+        match.setRound(markAsFavouriteDTO.getHeaderDTO().getRound());
+        match.setGameCode(markAsFavouriteDTO.getGameCode());
+        return match;
+    }
+
+        public static Match mapToEntity(MatchDTO matchDTO){
         Match match = new Match();
         match.setLive(matchDTO.getLive());
         match.setTeamA(matchDTO.getTeamA());
@@ -143,3 +157,5 @@ public class MatchAdapter {
     }
 
 }
+
+
