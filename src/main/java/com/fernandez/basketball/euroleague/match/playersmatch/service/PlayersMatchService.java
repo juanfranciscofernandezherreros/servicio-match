@@ -6,4 +6,6 @@ import java.io.IOException;
 
 public interface PlayersMatchService {
     PlayerMatch[] findPlayersMatchByTeam(String fileName)  throws IOException;
+
+    PlayerMatch[] findPlayersMatchByTeamWitouthSync(String gameCode, String seassonCode, String teamCode) throws IOException;
 }

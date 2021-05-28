@@ -5,10 +5,9 @@ import com.fernandez.basketball.euroleague.match.playersmatch.dto.PlayerMatch;
 import com.fernandez.basketball.euroleague.match.playersmatch.service.PlayersMatchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -28,4 +27,9 @@ public class PlayersMatchController {
         return playersMatchService.findPlayersMatchByTeam(fileName);
     }
 
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYERSMATCH)
+    public ResponseEntity<PlayerMatch[]> findPlayersMatchByTeamWitouthSync(@RequestParam("gameCode") String gameCode , @RequestParam("seassonCode") String seassonCode, @RequestParam("teamCode") String teamCode) throws IOException {
+        log.info("[PlayersMatchController][findPlayersMatchByTeamWitouthSync] gameCode={} seassonCode={} teamCode={}" + gameCode,seassonCode,teamCode);
+        return ResponseEntity.ok(playersMatchService.findPlayersMatchByTeamWitouthSync(gameCode,seassonCode,teamCode));
+    }
 }
