@@ -6,4 +6,5 @@ import java.io.IOException;
 
 public interface EvolutionService {
     Evolution findAllEvolutionFromMatchInJsonFile(String fileName) throws IOException;
+    Evolution evolutionWitouthSync(String gameCode, String seassonCode) throws IOException;
 }
