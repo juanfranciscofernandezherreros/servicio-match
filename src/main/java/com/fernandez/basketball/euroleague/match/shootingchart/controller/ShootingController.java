@@ -5,10 +5,7 @@ import com.fernandez.basketball.euroleague.match.shootingchart.dto.Shooting;
 import com.fernandez.basketball.euroleague.match.shootingchart.service.ShootingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -28,5 +25,10 @@ public class ShootingController {
         return shootingService.findAllShootingFromMatchInJsonFile(fileName);
     }
 
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.SHOOTING)
+    public Shooting findAllShootingWitouthSync(@RequestParam("gameCode") String gameCode , @RequestParam("seassonCode") String seassonCode) throws IOException {
+        log.info("[ShootingController][findAllShootingWitouthSync] gameCode={} seassonCode={}" + gameCode,seassonCode);
+        return shootingService.findAllShootingWitouthSync(gameCode,seassonCode);
+    }
 }
 
