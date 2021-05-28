@@ -8,4 +8,5 @@ import java.io.IOException;
 public interface HeaderService {
     Header findHeader(String fileName) throws IOException;
     ResponseEntity<Header> findInfoMatch(String gamecode, String seasoncode);
+    Header headerWitouthSync(String gamecode, String seasoncode) throws IOException;
 }
