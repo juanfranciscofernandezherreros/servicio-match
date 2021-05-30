@@ -12,6 +12,9 @@ import com.fernandez.basketball.euroleague.match.points.service.PointsService;
 import com.fernandez.basketball.euroleague.match.shootingchart.service.ShootingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -37,6 +40,8 @@ public class DataServiceImpl implements DataService {
 
     private final PointsService pointsService;
 
+    private final MongoTemplate mongoTemplate;
+
     @Override
     public DataDTO findCompleteDataMtach(String gameCode, String seassonCode) throws IOException {
         DataDTO dataDTO = new DataDTO();
@@ -50,6 +55,7 @@ public class DataServiceImpl implements DataService {
         dataDTO.setMatchDTO(playByPlayService.downloadWitouthSync(gameCode, seassonCode).getBody());
         dataDTO.setPlayerMatchTeamA(playersMatchService.findPlayersMatchByTeamWitouthSync(gameCode, seassonCode,header.getCodeTeamA().toUpperCase()));
         dataDTO.setPlayerMatchTeamB(playersMatchService.findPlayersMatchByTeamWitouthSync(gameCode, seassonCode,header.getCodeTeamB().toUpperCase()));
+        mongoTemplate.save(dataDTO);
         return dataDTO;
     }
 }
