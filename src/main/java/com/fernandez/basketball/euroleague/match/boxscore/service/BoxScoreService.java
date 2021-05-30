@@ -7,4 +7,6 @@ import java.io.IOException;
 
 public interface BoxScoreService {
     BoxScore findBoxScoreFromJson(String fileName) throws IOException;
+
+    BoxScore findBoxScoreWitouthSync(String gameCode, String seassonCode) throws IOException;
 }

@@ -1,4 +1,4 @@
-package com.fernandez.basketball.euroleague.match.players.dto;
+package com.fernandez.basketball.euroleague.players.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

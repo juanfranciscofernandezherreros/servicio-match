@@ -1,6 +1,6 @@
-package com.fernandez.basketball.euroleague.match.players.service;
+package com.fernandez.basketball.euroleague.players.service;
 
-import com.fernandez.basketball.euroleague.match.players.dto.PlayerDTO;
+import com.fernandez.basketball.euroleague.players.dto.PlayerDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

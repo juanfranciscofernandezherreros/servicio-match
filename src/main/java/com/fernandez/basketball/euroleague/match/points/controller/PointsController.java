@@ -5,10 +5,7 @@ import com.fernandez.basketball.euroleague.match.points.dto.Points;
 import com.fernandez.basketball.euroleague.match.points.service.PointsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -27,6 +24,14 @@ public class PointsController {
         log.info("[PointsController][findAllPointsFromMatchInJsonFile] fileName={}" , fileName);
         return pointsService.findAllPointsFromMatchInJsonFile(fileName);
     }
+
+
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.POINTS)
+    public Points findPointsWitouthSync(@RequestParam("gameCode") String gameCode , @RequestParam("seassonCode") String seassonCode) throws IOException {
+        log.info("[PointsController][findPointsWitouthSync]" );
+        return pointsService.findPointsWitouthSync(gameCode,seassonCode);
+    }
+
 
 }
 

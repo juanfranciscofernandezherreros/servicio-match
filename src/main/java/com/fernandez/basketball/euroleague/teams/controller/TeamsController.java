@@ -1,8 +1,8 @@
-package com.fernandez.basketball.euroleague.match.teams.controller;
+package com.fernandez.basketball.euroleague.teams.controller;
 
 import com.fernandez.basketball.commons.constants.UrlMapping;
-import com.fernandez.basketball.euroleague.match.teams.dto.TeamsDTO;
-import com.fernandez.basketball.euroleague.match.teams.service.TeamsService;
+import com.fernandez.basketball.euroleague.teams.dto.TeamsDTO;
+import com.fernandez.basketball.euroleague.teams.service.TeamsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
