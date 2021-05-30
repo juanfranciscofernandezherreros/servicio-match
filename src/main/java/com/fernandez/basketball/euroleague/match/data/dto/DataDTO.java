@@ -9,11 +9,14 @@ import com.fernandez.basketball.euroleague.match.playersmatch.dto.PlayerMatch;
 import com.fernandez.basketball.euroleague.match.points.dto.Points;
 import com.fernandez.basketball.euroleague.match.shootingchart.dto.Shooting;
 
+import java.util.Arrays;
+
 
 public class DataDTO {
     Header header;
     MatchDTO matchDTO;
-    PlayerMatch playerMatch;
+    PlayerMatch[] playerMatchTeamA;
+    PlayerMatch[] playerMatchTeamB;
     BoxScore boxScore;
     Points points;
     Evolution evolution;
@@ -36,12 +39,20 @@ public class DataDTO {
         this.matchDTO = matchDTO;
     }
 
-    public PlayerMatch getPlayerMatch() {
-        return playerMatch;
+    public PlayerMatch[] getPlayerMatchTeamA() {
+        return playerMatchTeamA;
     }
 
-    public void setPlayerMatch(PlayerMatch playerMatch) {
-        this.playerMatch = playerMatch;
+    public void setPlayerMatchTeamA(PlayerMatch[] playerMatchTeamA) {
+        this.playerMatchTeamA = playerMatchTeamA;
+    }
+
+    public PlayerMatch[] getPlayerMatchTeamB() {
+        return playerMatchTeamB;
+    }
+
+    public void setPlayerMatchTeamB(PlayerMatch[] playerMatchTeamB) {
+        this.playerMatchTeamB = playerMatchTeamB;
     }
 
     public BoxScore getBoxScore() {
@@ -89,7 +100,8 @@ public class DataDTO {
         return "DataDTO{" +
                 "header=" + header +
                 ", matchDTO=" + matchDTO +
-                ", playerMatch=" + playerMatch +
+                ", playerMatchTeamA=" + Arrays.toString(playerMatchTeamA) +
+                ", playerMatchTeamB=" + Arrays.toString(playerMatchTeamB) +
                 ", boxScore=" + boxScore +
                 ", points=" + points +
                 ", evolution=" + evolution +

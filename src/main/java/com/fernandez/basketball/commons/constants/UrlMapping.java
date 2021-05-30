@@ -22,6 +22,7 @@ public final class UrlMapping {
     public static final String PLAYERS = "/players";
     public static final String SHOWPLAYER = "/showPlayer";
     public static final String DOWNLOAD = "/download";
+    public static final String DATA = "/data";
     public static final String SYNC = "/sync";
     public static final String ROUND = "/round";
     public static final String PHASE = "/phase";
