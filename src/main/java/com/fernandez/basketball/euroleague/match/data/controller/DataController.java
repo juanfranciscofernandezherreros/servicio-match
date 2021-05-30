@@ -23,7 +23,7 @@ public class DataController {
 
     private final DataService dataService;
 
-    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + UrlMapping.DATA)
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.DATA)
     public ResponseEntity<DataDTO> findDataMatch(@RequestParam String gamecode ,
                                                  @RequestParam String seasoncode) throws IOException {
         log.info("[DataController][findDataMatch] gamecode={} seasoncode={}",gamecode,seasoncode);
