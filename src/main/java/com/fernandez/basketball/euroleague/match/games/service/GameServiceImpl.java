@@ -18,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
@@ -37,6 +38,8 @@ public class GameServiceImpl implements GameService{
     private final HeaderService headerService;
 
     private final ModelMapper modelMapper = new ModelMapper();
+
+    private final MongoTemplate mongoTemplate;
 
     @Override
     public MatchDTO save(MatchDTO matchDTO) {
@@ -89,6 +92,7 @@ public class GameServiceImpl implements GameService{
                 gamesScrappingDTO.setGameCode(gameCode);
                 gamesScrappingDTO.setSeassonCode(seasoncode);
                 gamesScrappingDTO.setHeader(headerService.findInfoMatch(gameCode,seasoncode).getBody());
+                mongoTemplate.save(gamesScrappingDTO);
                 gamesScrappingDTOList.add(gamesScrappingDTO);
             }
         }else{

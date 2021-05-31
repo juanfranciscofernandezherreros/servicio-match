@@ -10,6 +10,7 @@ import org.jsoup.select.Elements;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TeamsServiceImpl implements TeamsService{
+
+    private final MongoTemplate mongoTemplate;
 
     @Override
     public Page<TeamsDTO> findAllTeamsByYear(final String year,final Pageable pageable) {
@@ -42,6 +45,7 @@ public class TeamsServiceImpl implements TeamsService{
                     teamsDTO.setUrl(newUrl);
                     teamsDTO.setNameTeam(link.text());
                     teamsDTO.setSeasson(part2);
+                    mongoTemplate.save(teamsDTO);
                     teamsDTOList.add(teamsDTO);
                 }
             }
