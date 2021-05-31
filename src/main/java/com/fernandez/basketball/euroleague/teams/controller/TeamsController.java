@@ -24,7 +24,7 @@ public class TeamsController {
 
     private final TeamsService teamsService;
 
-    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.TEAMS + "/{year}")
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 +UrlMapping.SYNC + UrlMapping.TEAMS + "/{year}")
     public Page<TeamsDTO> findAllTeamsByYear(@PathVariable String year,
                                              Pageable pageable) throws IOException {
         log.info("[TeamsController][findAllTeamsByYear] year={}",year);

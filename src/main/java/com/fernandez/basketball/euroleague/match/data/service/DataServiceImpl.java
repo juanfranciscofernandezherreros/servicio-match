@@ -12,8 +12,6 @@ import com.fernandez.basketball.euroleague.match.points.service.PointsService;
 import com.fernandez.basketball.euroleague.match.shootingchart.service.ShootingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 

@@ -3,6 +3,8 @@ package com.fernandez.basketball.euroleague.match.games.service;
 import com.fernandez.basketball.euroleague.match.common.repository.MatchRepository;
 import com.fernandez.basketball.euroleague.match.games.dto.GamesDTO;
 import com.fernandez.basketball.euroleague.match.games.dto.GamesScrappingDTO;
+import com.fernandez.basketball.euroleague.match.games.repository.GamesRepository;
+import com.fernandez.basketball.euroleague.match.header.dto.Header;
 import com.fernandez.basketball.euroleague.match.header.service.HeaderService;
 import com.fernandez.basketball.euroleague.match.playbyplay.adapter.MatchAdapter;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
@@ -39,12 +41,21 @@ public class GameServiceImpl implements GameService{
 
     private final ModelMapper modelMapper = new ModelMapper();
 
+    private final GamesRepository gamesRepository;
+
     private final MongoTemplate mongoTemplate;
 
     @Override
     public MatchDTO save(MatchDTO matchDTO) {
         Match match = MatchAdapter.mapToEntity(matchDTO);
         return modelMapper.map(matchRepository.save(match),MatchDTO.class);
+    }
+
+    @Override
+    public Page<GamesScrappingDTO> findAllGamesTeamAndYear(String seassonCode,String clubcode,Pageable pageable){
+        Header header = new Header();
+        header.setCodeTeamA(clubcode);
+        return gamesRepository.findAllBySeassonCodAndTeam(seassonCode,clubcode,pageable);
     }
 
     @Override
@@ -91,7 +102,9 @@ public class GameServiceImpl implements GameService{
                 String gameCode = linksMatchList.get(i).split("&")[0].subSequence(32,linksMatchList.get(i).split("&")[0].length()).toString();
                 gamesScrappingDTO.setGameCode(gameCode);
                 gamesScrappingDTO.setSeassonCode(seasoncode);
-                gamesScrappingDTO.setHeader(headerService.findInfoMatch(gameCode,seasoncode).getBody());
+                Header header = headerService.findInfoMatch(gameCode,seasoncode).getBody();
+                gamesScrappingDTO.setHeader(header);
+                gamesScrappingDTO.setTeam(clubcode);
                 mongoTemplate.save(gamesScrappingDTO);
                 gamesScrappingDTOList.add(gamesScrappingDTO);
             }

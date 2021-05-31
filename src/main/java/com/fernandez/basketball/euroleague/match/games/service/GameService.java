@@ -12,6 +12,7 @@ import java.util.List;
 
 public interface GameService {
     MatchDTO save(MatchDTO matchDTO);
+    Page<GamesScrappingDTO> findAllGamesTeamAndYear(String seassonCode,String clubCode,Pageable pageable);
     Page<GamesScrappingDTO> findAllGamesByTeamAndYear(String clubode , String seasoncode , final Pageable pageable) throws MalformedURLException, UnsupportedEncodingException;
     Page<GamesDTO> findAllGames (final Pageable pageable);
 }

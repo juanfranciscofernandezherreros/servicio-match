@@ -30,18 +30,22 @@ public class GamesController {
     private final PlayByPlayService playByPlayService;
 
 
-    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES + UrlMapping.CLUBCODE + "/{clubcode}" + UrlMapping.SEASSONCODE + "/{seasoncode}")
-    public Page<GamesScrappingDTO> findAllGamesByTeamAndYear(@PathVariable String clubcode ,
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 +UrlMapping.SYNC + UrlMapping.GAMES + UrlMapping.CLUBCODE + "/{clubcode}" + UrlMapping.SEASSONCODE + "/{seasoncode}")
+    public Page<GamesScrappingDTO> syncAllGamesByTeamAndYear(@PathVariable String clubcode ,
                                                              @PathVariable String seasoncode ,
                                                              final @PageableDefault(size = 40) Pageable pageable) throws MalformedURLException, UnsupportedEncodingException {
-        log.info("[GamesController][findAllGamesByTeamAndYear] clubcode={} seasoncode={}" , clubcode , seasoncode);
+        log.info("[GamesController][syncAllGamesByTeamAndYear] clubcode={} seasoncode={}" , clubcode , seasoncode);
+
         return gameService.findAllGamesByTeamAndYear(clubcode,seasoncode,pageable);
     }
 
-    @PostMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES)
-    public MatchDTO saveGamesByTeamAndYear(@RequestBody MatchDTO matchDTO) {
-        log.info("[GamesController][saveGamesByTeamAndYear] matchDTO={}" , matchDTO);
-        return gameService.save(matchDTO);
+
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES + UrlMapping.CLUBCODE + "/{clubcode}" + UrlMapping.SEASSONCODE + "/{seasoncode}")
+    public Page<GamesScrappingDTO> findAllBySeassonCodeAndHeader(@PathVariable String clubcode ,
+                                                                 @PathVariable String seasoncode ,
+                                                                 final @PageableDefault(size = 40) Pageable pageable) throws MalformedURLException, UnsupportedEncodingException {
+        log.info("[GamesController][findAllBySeassonCodeAndHeader] seasoncode={} clubcode={}", seasoncode ,clubcode);
+        return gameService.findAllGamesTeamAndYear(seasoncode,clubcode,pageable);
     }
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES)

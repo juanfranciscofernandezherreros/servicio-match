@@ -5,12 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Document(collection = "gamesScrappingDTO")
 @ToString
 public class GamesScrappingDTO {
+    @Id
+    private String id;
     private String numberMatch;
     private String winLose;
     private String versus;
@@ -19,4 +25,5 @@ public class GamesScrappingDTO {
     private Header header;
     private String gameCode;
     private String seassonCode;
+    private String team;
 }
