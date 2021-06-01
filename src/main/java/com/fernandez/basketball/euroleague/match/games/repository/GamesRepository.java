@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GamesRepository extends MongoRepository<GamesScrappingDTO,String > {
 
-    @Query(value = "{'seassonCode' : ?0 , 'team' : ?1 }")
-    Page<GamesScrappingDTO> findAllBySeassonCodAndTeam(String seassonCode, String team, Pageable pageable);
+    @Query(value = "{'seassonCode' : ?0}")
+    Page<GamesScrappingDTO> findAllBySeassonCod(String seassonCode, String team, Pageable pageable);
 
 }

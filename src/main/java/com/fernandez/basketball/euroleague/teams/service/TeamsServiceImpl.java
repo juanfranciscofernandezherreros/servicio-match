@@ -1,6 +1,7 @@
 package com.fernandez.basketball.euroleague.teams.service;
 
 import com.fernandez.basketball.euroleague.teams.dto.TeamsDTO;
+import com.fernandez.basketball.euroleague.teams.repository.TeamsRepository;
 import com.fernandez.basketball.utils.DocumenUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,15 @@ public class TeamsServiceImpl implements TeamsService{
 
     private final MongoTemplate mongoTemplate;
 
+    private final TeamsRepository teamsRepository;
+
     @Override
     public Page<TeamsDTO> findAllTeamsByYear(final String year,final Pageable pageable) {
+        return teamsRepository.findAllTeamsBySeasson(year,pageable);
+    }
+
+    @Override
+    public Page<TeamsDTO> syncAllTeamsByYear(String year, Pageable pageable) {
         String url = "https://www.euroleague.net/competition/teams?seasoncode=E"+year;
         List<String> teamsStringList = new ArrayList<>();
         List<TeamsDTO> teamsDTOList = new ArrayList<>();

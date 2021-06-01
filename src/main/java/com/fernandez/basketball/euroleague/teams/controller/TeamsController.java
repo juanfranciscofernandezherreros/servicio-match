@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +26,15 @@ public class TeamsController {
     private final TeamsService teamsService;
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 +UrlMapping.SYNC + UrlMapping.TEAMS + "/{year}")
+    public Page<TeamsDTO> syncAllTeamsByYear(@PathVariable String year,
+                                             final @PageableDefault(size = 40) Pageable pageable) throws IOException {
+        log.info("[TeamsController][syncAllTeamsByYear] year={}",year);
+        return teamsService.syncAllTeamsByYear(year,pageable);
+    }
+
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.TEAMS + "/{year}")
     public Page<TeamsDTO> findAllTeamsByYear(@PathVariable String year,
-                                             Pageable pageable) throws IOException {
+                                             final @PageableDefault(size = 40) Pageable pageable) throws IOException {
         log.info("[TeamsController][findAllTeamsByYear] year={}",year);
         return teamsService.findAllTeamsByYear(year,pageable);
     }

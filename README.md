@@ -1,33 +1,9 @@
+# Scrapping Eeuroleague Data
 
-EUROLEAGUE
+## Starting 🚀
 
-+ application
-    + request
-    + response
-    + file
-    + euroleague
-        + match
-            + boxscore
-            + comparission
-            + data
-            + evolution
-            + games
-            + header
-            + playByplay
-            + playersmatch
-            + points
-            + shootingcharts
-        + players
-        + teams
-        + years
-+ domain
-    + repository
-        + entity
-        + service
-        + exception
-+ infraestructure
-    + constants
-    + utils
-    + adapter
-    + config
-    + mappers
+Project to Scrapping data from Match in Euroleague
+
+### How to use it 📋
+
+For use the project we could use swagger-ui : {urlHost}/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#

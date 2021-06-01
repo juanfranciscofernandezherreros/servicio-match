@@ -55,7 +55,7 @@ public class GameServiceImpl implements GameService{
     public Page<GamesScrappingDTO> findAllGamesTeamAndYear(String seassonCode,String clubcode,Pageable pageable){
         Header header = new Header();
         header.setCodeTeamA(clubcode);
-        return gamesRepository.findAllBySeassonCodAndTeam(seassonCode,clubcode,pageable);
+        return gamesRepository.findAllBySeassonCod(seassonCode,clubcode,pageable);
     }
 
     @Override
