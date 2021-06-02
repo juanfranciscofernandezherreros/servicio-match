@@ -8,9 +8,16 @@ import java.io.IOException;
 
 public interface PlayByPlayService {
     MatchDTO findAllMovementsFromMatchInJsonFile(String fileName) throws IOException;
+
     ResponseEntity<MatchDTO> download(String clubcode, String seasoncode) throws IOException;
+
     MatchDTO findAllPlayByPlayFromMatch(Long matchId);
+
     MarkAsFavouriteDTO markAsFavourite(MarkAsFavouriteDTO markAsFavouriteDTO);
+
     MatchDTO save(MatchDTO saveMatch);
+
     ResponseEntity<MatchDTO> downloadWitouthSync(String gamecode, String seasoncode) throws IOException;
+
+    void deleteByMarkAsFavourite(String numberOfPlay, String gamecode, String seasoncode);
 }

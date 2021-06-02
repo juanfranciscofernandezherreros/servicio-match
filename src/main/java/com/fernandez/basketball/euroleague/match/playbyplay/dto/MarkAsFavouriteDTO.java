@@ -1,82 +1,18 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.dto;
 
-
-import com.fernandez.basketball.euroleague.match.header.dto.Header;
-
 public class MarkAsFavouriteDTO {
-    private Long matchId;
-    private Header headerDTO;
-    private MatchDTO matchDTO;
-    private FirstQuarterDTO firstQuarterDTO;
-    private SecondQuarterDTO secondQuarterDTO;
-    private ThirdQuarterDTO thirdQuarterDTO;
-    private ForthQuarterDTO forthQuarterDTO;
-    private ExtraTimeDTO extraTimeDTO;
+
+    private FirstQuarterDTO quarterDTo;
     private String gameCode;
     private String seassonCode;
+    private String actualQuarter;
 
-    public Long getMatchId() {
-        return matchId;
+    public FirstQuarterDTO getQuarterDTo() {
+        return quarterDTo;
     }
 
-    public void setMatchId(Long matchId) {
-        this.matchId = matchId;
-    }
-
-    public Header getHeaderDTO() {
-        return headerDTO;
-    }
-
-    public void setHeaderDTO(Header headerDTO) {
-        this.headerDTO = headerDTO;
-    }
-
-    public MatchDTO getMatchDTO() {
-        return matchDTO;
-    }
-
-    public void setMatchDTO(MatchDTO matchDTO) {
-        this.matchDTO = matchDTO;
-    }
-
-    public FirstQuarterDTO getFirstQuarterDTO() {
-        return firstQuarterDTO;
-    }
-
-    public void setFirstQuarterDTO(FirstQuarterDTO firstQuarterDTO) {
-        this.firstQuarterDTO = firstQuarterDTO;
-    }
-
-    public SecondQuarterDTO getSecondQuarterDTO() {
-        return secondQuarterDTO;
-    }
-
-    public void setSecondQuarterDTO(SecondQuarterDTO secondQuarterDTO) {
-        this.secondQuarterDTO = secondQuarterDTO;
-    }
-
-    public ThirdQuarterDTO getThirdQuarterDTO() {
-        return thirdQuarterDTO;
-    }
-
-    public void setThirdQuarterDTO(ThirdQuarterDTO thirdQuarterDTO) {
-        this.thirdQuarterDTO = thirdQuarterDTO;
-    }
-
-    public ForthQuarterDTO getForthQuarterDTO() {
-        return forthQuarterDTO;
-    }
-
-    public void setForthQuarterDTO(ForthQuarterDTO forthQuarterDTO) {
-        this.forthQuarterDTO = forthQuarterDTO;
-    }
-
-    public ExtraTimeDTO getExtraTimeDTO() {
-        return extraTimeDTO;
-    }
-
-    public void setExtraTimeDTO(ExtraTimeDTO extraTimeDTO) {
-        this.extraTimeDTO = extraTimeDTO;
+    public void setQuarterDTo(FirstQuarterDTO quarterDTo) {
+        this.quarterDTo = quarterDTo;
     }
 
     public String getGameCode() {
@@ -95,19 +31,21 @@ public class MarkAsFavouriteDTO {
         this.seassonCode = seassonCode;
     }
 
+    public String getActualQuarter() {
+        return actualQuarter;
+    }
+
+    public void setActualQuarter(String actualQuarter) {
+        this.actualQuarter = actualQuarter;
+    }
+
     @Override
     public String toString() {
         return "MarkAsFavouriteDTO{" +
-                "matchId=" + matchId +
-                ", headerDTO=" + headerDTO +
-                ", matchDTO=" + matchDTO +
-                ", firstQuarterDTO=" + firstQuarterDTO +
-                ", secondQuarterDTO=" + secondQuarterDTO +
-                ", thirdQuarterDTO=" + thirdQuarterDTO +
-                ", forthQuarterDTO=" + forthQuarterDTO +
-                ", extraTimeDTO=" + extraTimeDTO +
+                "quarterDTo=" + quarterDTo +
                 ", gameCode='" + gameCode + '\'' +
                 ", seassonCode='" + seassonCode + '\'' +
+                ", actualQuarter='" + actualQuarter + '\'' +
                 '}';
     }
 }

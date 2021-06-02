@@ -36,15 +36,6 @@ public class PlayByPlayImpl implements PlayByPlayService{
 
     private final FirstQuarterRepository firstQuarterRepository;
 
-    private final SecondQuarterRepository secondQuarterRepository;
-
-    private final ThirdQuarterRepository thirdQuarterRepository;
-
-    private final ForthQuarterRepository forthQuarterRepository;
-
-    private final ExtraTimeRepository extraTimeRepository;
-
-
     @Override
     public MatchDTO findAllMovementsFromMatchInJsonFile(String fileName) throws IOException {
         final ObjectMapper objectMapper = new ObjectMapper();
@@ -95,85 +86,38 @@ public class PlayByPlayImpl implements PlayByPlayService{
     }
 
     @Override
+    public void deleteByMarkAsFavourite(String numberOfPlay,String gamecode, String seasoncode) {
+       Quarter firtsQuarter = firstQuarterRepository.findBygamecodeAndSeassoncodeAndNumberofplay(gamecode,seasoncode,Integer.valueOf(numberOfPlay));
+       firstQuarterRepository.deleteById(firtsQuarter.getId());
+    }
+
+    @Override
     public MarkAsFavouriteDTO markAsFavourite(MarkAsFavouriteDTO markAsFavouriteDTO) {
         MarkAsFavouriteDTO markAsFavouriteDTOCreated = new MarkAsFavouriteDTO();
         Match match = null;
         Optional<Match> optionalMatch = matchRepository.findByGameCodeAndSeassonCode(markAsFavouriteDTO.getGameCode(),markAsFavouriteDTO.getSeassonCode());
         if (optionalMatch.isPresent()){
-             match = optionalMatch.get();
+            match = optionalMatch.get();
         }else{
-            Match newMatch = MatchAdapter.mapToEntityFromMarkAsFavourite(markAsFavouriteDTO);
+            Match newMatch = new Match();
             newMatch.setGameCode(markAsFavouriteDTO.getGameCode());
             newMatch.setSeassonCode(markAsFavouriteDTO.getSeassonCode());
             match = matchRepository.save(newMatch);
         }
-        markAsFavouriteDTOCreated.setMatchDTO(modelMapper.map(match,MatchDTO.class));
-        if (Objects.nonNull(markAsFavouriteDTO.getFirstQuarterDTO())) {
-            FirstQuarter firstQuarter = null;
-            FirstQuarterDTO firstQuarterDTO = markAsFavouriteDTO.getFirstQuarterDTO();
+            Quarter firstQuarter = null;
+            FirstQuarterDTO firstQuarterDTO = markAsFavouriteDTO.getQuarterDTo();
             if (Objects.nonNull(firstQuarterDTO.getId())) {
                 firstQuarter = firstQuarterRepository.getOne(firstQuarterDTO.getId());
             } else {
-                firstQuarter = modelMapper.map(firstQuarterDTO, FirstQuarter.class);
+                firstQuarter = modelMapper.map(firstQuarterDTO, Quarter.class);
             }
-            firstQuarter.setMarkAsFavourite(markAsFavouriteDTO.getFirstQuarterDTO().isMarkAsFavourite());
+            firstQuarter.setActualQuarter(markAsFavouriteDTO.getActualQuarter());
+            firstQuarter.setMarkAsFavourite(markAsFavouriteDTO.getQuarterDTo().isMarkAsFavourite());
+            firstQuarter.setGamecode(markAsFavouriteDTO.getGameCode());
+            firstQuarter.setSeassoncode(markAsFavouriteDTO.getSeassonCode());
             firstQuarter.setMatch(match);
-            FirstQuarter frstQuarter = firstQuarterRepository.save(firstQuarter);
-            markAsFavouriteDTOCreated.setFirstQuarterDTO(modelMapper.map(frstQuarter, FirstQuarterDTO.class));
-        }
-        if (Objects.nonNull(markAsFavouriteDTO.getSecondQuarterDTO())) {
-            SecondQuarter secondQuarter = null;
-            SecondQuarterDTO secondQuarterDTO = markAsFavouriteDTO.getSecondQuarterDTO();
-            if (Objects.nonNull(secondQuarterDTO.getId())) {
-                secondQuarter = secondQuarterRepository.getOne(secondQuarterDTO.getId());
-            } else {
-                secondQuarter = modelMapper.map(secondQuarterDTO, SecondQuarter.class);
-            }
-            secondQuarter.setMarkAsFavourite(markAsFavouriteDTO.getSecondQuarterDTO().isMarkAsFavourite());
-            secondQuarter.setMatch(match);
-            SecondQuarter scndQuarter = secondQuarterRepository.save(secondQuarter);
-            markAsFavouriteDTOCreated.setSecondQuarterDTO(modelMapper.map(scndQuarter, SecondQuarterDTO.class));
-        }
-        if (Objects.nonNull(markAsFavouriteDTO.getThirdQuarterDTO())) {
-            ThirdQuarter thirdQuarter = null;
-            ThirdQuarterDTO thirdQuarterDTO = markAsFavouriteDTO.getThirdQuarterDTO();
-            if (Objects.nonNull(thirdQuarterDTO.getId())) {
-                thirdQuarter = thirdQuarterRepository.getOne(thirdQuarterDTO.getId());
-            } else {
-                thirdQuarter = modelMapper.map(thirdQuarterDTO, ThirdQuarter.class);
-            }
-            thirdQuarter.setMarkAsFavourite(markAsFavouriteDTO.getThirdQuarterDTO().isMarkAsFavourite());
-            thirdQuarter.setMatch(match);
-            ThirdQuarter thrdQuarter = thirdQuarterRepository.save(thirdQuarter);
-            markAsFavouriteDTOCreated.setThirdQuarterDTO(modelMapper.map(thrdQuarter, ThirdQuarterDTO.class));
-        }
-        if (Objects.nonNull(markAsFavouriteDTO.getForthQuarterDTO())) {
-            ForthQuarter forthQuarter = null;
-            ForthQuarterDTO forthQuarterDTO = markAsFavouriteDTO.getForthQuarterDTO();
-            if (Objects.nonNull(forthQuarterDTO.getId())) {
-                forthQuarter = forthQuarterRepository.getOne(forthQuarterDTO.getId());
-            } else {
-                forthQuarter = modelMapper.map(forthQuarterDTO, ForthQuarter.class);
-            }
-            forthQuarter.setMarkAsFavourite(markAsFavouriteDTO.getForthQuarterDTO().isMarkAsFavourite());
-            forthQuarter.setMatch(match);
-            ForthQuarter frthQuarter = forthQuarterRepository.save(forthQuarter);
-            markAsFavouriteDTOCreated.setForthQuarterDTO(modelMapper.map(frthQuarter, ForthQuarterDTO.class));
-        }
-        if (Objects.nonNull(markAsFavouriteDTO.getExtraTimeDTO())) {
-            ExtraTime extraTime = null;
-            ExtraTimeDTO extraTimeDTO = markAsFavouriteDTO.getExtraTimeDTO();
-            if (Objects.nonNull(extraTimeDTO.getId())) {
-                extraTime = extraTimeRepository.getOne(extraTimeDTO.getId());
-            } else {
-                extraTime = modelMapper.map(extraTimeDTO, ExtraTime.class);
-            }
-            extraTime.setMarkAsFavourite(markAsFavouriteDTO.getForthQuarterDTO().isMarkAsFavourite());
-            extraTime.setMatch(match);
-            ExtraTime exTr = extraTimeRepository.save(extraTime);
-            markAsFavouriteDTOCreated.setExtraTimeDTO(modelMapper.map(exTr, ExtraTimeDTO.class));
-        }
-        markAsFavouriteDTOCreated.setMatchId(match.getId());
+            Quarter frstQuarter = firstQuarterRepository.save(firstQuarter);
+            markAsFavouriteDTOCreated.setQuarterDTo(modelMapper.map(frstQuarter, FirstQuarterDTO.class));
         return markAsFavouriteDTOCreated;
     }
 }

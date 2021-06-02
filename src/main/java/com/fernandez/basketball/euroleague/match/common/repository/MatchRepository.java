@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long> {
     Optional<Match> findByGameCodeAndSeassonCode(String gameCode, String seassonCode);
+
+
 }

@@ -1,5 +1,6 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "forthquarter")
-public class ForthQuarter {
+@Table(name = "quarter")
+public class Quarter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +36,13 @@ public class ForthQuarter {
     private String pointsB;
     private String comment;
     private String playinfo;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Match match;
     private boolean markAsFavourite;
+    private String gamecode;
+    private String seassoncode;
+    private String actualQuarter;
+
 
 }

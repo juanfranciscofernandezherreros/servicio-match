@@ -1,14 +1,11 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fernandez.basketball.euroleague.match.playbyplay.dto.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -39,21 +36,6 @@ public class Match {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="match_id")
     @JsonBackReference
-    private List<FirstQuarter> firstQuarter;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="match_id")
-    @JsonBackReference
-    private List<SecondQuarter> secondQuarter;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="match_id")
-    @JsonBackReference
-    private List<ThirdQuarter> thirdQuarter;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="match_id")
-    @JsonBackReference
-    private List<ForthQuarter> forthQuarter;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="match_id")
-    @JsonBackReference
-    private List<ExtraTime> extraTime;
+    private List<Quarter> firstQuarter;
+
 }

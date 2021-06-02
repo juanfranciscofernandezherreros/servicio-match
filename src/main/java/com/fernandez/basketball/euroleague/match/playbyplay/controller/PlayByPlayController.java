@@ -31,23 +31,19 @@ public class PlayByPlayController {
         return ResponseEntity.ok(playByPlayService.markAsFavourite(markAsFavouriteDTO));
     }
 
+    @DeleteMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.FAVOURITE + UrlMapping.PLAYBYPLAY)
+    public void deletePlayByPlayAsFavourite(@RequestParam String numberofplay,
+                                            @RequestParam String gamecode ,
+                                            @RequestParam String seasoncode) {
+        log.info("[PlayByPlayController][deletePlayByPlayAsFavourite] gamecode={} seasoncode={}" +numberofplay, gamecode,seasoncode );
+        playByPlayService.deleteByMarkAsFavourite(numberofplay,gamecode,seasoncode);
+    }
+
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + "/{fileName}")
     public MatchDTO findAll(@PathVariable String fileName) throws IOException {
         log.info("[PlayByPlayController][findAll] fileName={}" , fileName);
         return playByPlayService.findAllMovementsFromMatchInJsonFile(fileName);
     }
-
-    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + UrlMapping.DOWNLOAD)
-    public ResponseEntity<MatchDTO> downloadWitouthSync(@RequestParam String gamecode ,
-                                                       @RequestParam String seasoncode) throws IOException {
-        log.info("[PlayByPlayController][downloadWitouthSync] gamecode={} seasoncode={}",gamecode,seasoncode);
-        ResponseEntity<MatchDTO> matchDTO = playByPlayService.downloadWitouthSync(gamecode,seasoncode);
-        ResponseEntity<Header> header = headerService.findInfoMatch(gamecode,seasoncode);
-        matchDTO.getBody().setHeader(header.getBody());
-        return matchDTO;
-    }
-
-
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.SYNC + UrlMapping.PLAYBYPLAY)
     public MatchDTO syncWithDatabase(@RequestParam String gamecode , @RequestParam String seasoncode) throws IOException {
