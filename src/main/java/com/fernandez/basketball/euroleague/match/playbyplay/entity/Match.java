@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,8 +35,7 @@ public class Match {
     private String round;
     private String gameCode;
     private String seassonCode;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="match_id")
+    @OneToMany(mappedBy="match")
     @JsonBackReference
     private List<Quarter> firstQuarter;
 

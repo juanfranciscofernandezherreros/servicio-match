@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -36,7 +38,8 @@ public class Quarter {
     private String pointsB;
     private String comment;
     private String playinfo;
-    @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name="match_id")
     @JsonManagedReference
     private Match match;
     private boolean markAsFavourite;
