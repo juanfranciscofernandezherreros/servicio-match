@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MatchMongoRepository extends CrudRepository<Match, Long> {
 
+    Match findByGameCodeAndSeassonCode(String gameCode, String seassonCode);
 }

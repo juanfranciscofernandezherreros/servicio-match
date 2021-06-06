@@ -13,6 +13,7 @@ import java.util.Arrays;
 
 
 public class DataDTO {
+    String _id;
     Header header;
     MatchDTO matchDTO;
     PlayerMatch[] playerMatchTeamA;
@@ -22,6 +23,16 @@ public class DataDTO {
     Evolution evolution;
     Comparission comparission;
     Shooting shooting;
+    String gameCode;
+    String seassonCode;
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
     public Header getHeader() {
         return header;
@@ -95,10 +106,27 @@ public class DataDTO {
         this.shooting = shooting;
     }
 
+    public String getGameCode() {
+        return gameCode;
+    }
+
+    public void setGameCode(String gameCode) {
+        this.gameCode = gameCode;
+    }
+
+    public String getSeassonCode() {
+        return seassonCode;
+    }
+
+    public void setSeassonCode(String seassonCode) {
+        this.seassonCode = seassonCode;
+    }
+
     @Override
     public String toString() {
         return "DataDTO{" +
-                "header=" + header +
+                "_id='" + _id + '\'' +
+                ", header=" + header +
                 ", matchDTO=" + matchDTO +
                 ", playerMatchTeamA=" + Arrays.toString(playerMatchTeamA) +
                 ", playerMatchTeamB=" + Arrays.toString(playerMatchTeamB) +
@@ -107,6 +135,8 @@ public class DataDTO {
                 ", evolution=" + evolution +
                 ", comparission=" + comparission +
                 ", shooting=" + shooting +
+                ", gameCode='" + gameCode + '\'' +
+                ", seassonCode='" + seassonCode + '\'' +
                 '}';
     }
 }
