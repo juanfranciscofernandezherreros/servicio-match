@@ -17,4 +17,5 @@ public interface FirstQuarterRepository extends JpaRepository<Quarter, Long> {
 
     Quarter findBygamecodeAndSeassoncodeAndNumberofplay(String gamecode, String seassoncode,Integer numberofplay);
 
+
 }

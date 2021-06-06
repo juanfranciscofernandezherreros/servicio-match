@@ -1,11 +1,11 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.repository;
 
-import com.fernandez.basketball.euroleague.match.playbyplay.entity.mongo.Match;
+import com.fernandez.basketball.euroleague.match.playbyplay.entity.mongo.MatchMongo;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MatchMongoRepository extends CrudRepository<Match, Long> {
+public interface MatchMongoRepository extends CrudRepository<MatchMongo, Long> {
 
-    Match findByGameCodeAndSeassonCode(String gameCode, String seassonCode);
+    MatchMongo findByGameCodeAndSeassonCode(String gameCode, String seassonCode);
 }

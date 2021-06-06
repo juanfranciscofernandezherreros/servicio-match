@@ -19,5 +19,7 @@ public interface PlayByPlayService {
 
     ResponseEntity<MatchDTO> downloadWitouthSync(String gamecode, String seasoncode) throws IOException;
 
-    void deleteByMarkAsFavourite(String numberOfPlay, String gamecode, String seasoncode);
+    void deleteByMarkAsFavourite(String numberOfPlay, String gamecode, String seasoncode,String actualQuarter,String index);
+
+    void addToArticle(String articleId, String numberofplay, String gamecode, String seasoncode);
 }

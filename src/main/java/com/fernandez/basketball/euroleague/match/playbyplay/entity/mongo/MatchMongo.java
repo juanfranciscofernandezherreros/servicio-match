@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Id;
 
 @Document("dataDTO")
-public class Match {
+public class MatchMongo {
 
     @Id
     private String id;

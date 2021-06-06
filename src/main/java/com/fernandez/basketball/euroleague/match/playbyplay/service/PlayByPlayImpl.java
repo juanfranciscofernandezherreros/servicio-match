@@ -3,14 +3,20 @@ package com.fernandez.basketball.euroleague.match.playbyplay.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fernandez.basketball.commons.constants.UrlMapping;
 import com.fernandez.basketball.euroleague.match.common.repository.*;
+import com.fernandez.basketball.euroleague.match.data.dto.DataDTO;
 import com.fernandez.basketball.euroleague.match.playbyplay.adapter.MatchAdapter;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.*;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.jpa.Match;
 import com.fernandez.basketball.euroleague.match.playbyplay.entity.jpa.Quarter;
+import com.fernandez.basketball.euroleague.match.playbyplay.entity.jpa.QuarterArticle;
+import com.fernandez.basketball.euroleague.match.playbyplay.entity.mongo.MatchMongo;
 import com.fernandez.basketball.euroleague.match.playbyplay.repository.MatchMongoRepository;
+import com.fernandez.basketball.euroleague.match.playbyplay.repository.QuarterArticleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -39,6 +45,10 @@ public class PlayByPlayImpl implements PlayByPlayService{
     private final FirstQuarterRepository firstQuarterRepository;
 
     private final MatchMongoRepository matchMongoRepository;
+
+    private final MongoTemplate mongoTemplate;
+
+    private final QuarterArticleRepository quarterArticleRepository;
 
     @Override
     public MatchDTO findAllMovementsFromMatchInJsonFile(String fileName) throws IOException {
@@ -90,9 +100,45 @@ public class PlayByPlayImpl implements PlayByPlayService{
     }
 
     @Override
-    public void deleteByMarkAsFavourite(String numberOfPlay,String gamecode, String seasoncode) {
+    public void deleteByMarkAsFavourite(String numberOfPlay,String gamecode, String seasoncode,String actualQuarter,String index) {
        Quarter firtsQuarter = firstQuarterRepository.findBygamecodeAndSeassoncodeAndNumberofplay(gamecode,seasoncode,Integer.valueOf(numberOfPlay));
        firstQuarterRepository.deleteById(firtsQuarter.getId());
+       MatchMongo matchMongo = matchMongoRepository.findByGameCodeAndSeassonCode(gamecode,seasoncode);
+       DataDTO dataDTO = mongoTemplate.findById(new ObjectId(matchMongo.getId()),DataDTO.class);
+       if(actualQuarter.equals("1")){
+           dataDTO.getMatchDTO().getFirstQuarter().get(Integer.valueOf(index)).setMarkAsFavourite(false);
+       }
+        if(actualQuarter.equals("2")){
+            dataDTO.getMatchDTO().getSecondQuarter().get(Integer.valueOf(index)).setMarkAsFavourite(false);
+        }
+        if(actualQuarter.equals("3")){
+            dataDTO.getMatchDTO().getThirdQuarter().get(Integer.valueOf(index)).setMarkAsFavourite(false);
+        }
+        if(actualQuarter.equals("4")){
+            dataDTO.getMatchDTO().getForthQuarter().get(Integer.valueOf(index)).setMarkAsFavourite(false);
+        }
+        if(actualQuarter.equals("5")){
+            dataDTO.getMatchDTO().getExtraTime().get(Integer.valueOf(index)).setMarkAsFavourite(false);
+        }
+        mongoTemplate.save(dataDTO);
+    }
+
+    @Override
+    public void addToArticle(String articleId, String numberofplay, String gamecode, String seasoncode) {
+        Quarter quarter = firstQuarterRepository.findBygamecodeAndSeassoncodeAndNumberofplay(gamecode,seasoncode,Integer.valueOf(numberofplay));
+        if(Objects.nonNull(quarter)){
+            QuarterArticle quarterArticle = new QuarterArticle();
+            quarterArticle.setArticleId(articleId);
+            quarterArticle.setPlayInfo(quarter.getPlayinfo());
+            quarterArticle.setSeassonCode(quarter.getSeassoncode());
+            quarterArticle.setNumberofplay(quarter.getNumberofplay().toString());
+            quarterArticle.setActualQuarter(quarter.getActualQuarter());
+            quarterArticle.setPlayerId(quarter.getPlayerId());
+            quarterArticle.setPlayerName(quarter.getPlayer());
+            quarterArticle.setMarkertime(quarter.getMarkertime());
+            quarterArticle.setGameCode(gamecode);
+            quarterArticleRepository.save(quarterArticle);
+        }
     }
 
     @Override
@@ -121,16 +167,24 @@ public class PlayByPlayImpl implements PlayByPlayService{
             firstQuarter.setSeassoncode(markAsFavouriteDTO.getSeassonCode());
             firstQuarter.setMatch(match);
             Quarter frstQuarter = firstQuarterRepository.save(firstQuarter);
+            DataDTO dataDTO = mongoTemplate.findById(new ObjectId(markAsFavouriteDTO.get_id()),DataDTO.class);
             if(markAsFavouriteDTO.getActualQuarter().equals("1")){
-                System.out.println("MatchMongo:"+matchMongoRepository.findAll());
+                dataDTO.getMatchDTO().getFirstQuarter().get(markAsFavouriteDTO.getIndex().intValue()).setMarkAsFavourite(true);
             }
             if(markAsFavouriteDTO.getActualQuarter().equals("2")){
+                dataDTO.getMatchDTO().getSecondQuarter().get(markAsFavouriteDTO.getIndex().intValue()).setMarkAsFavourite(true);
             }
             if(markAsFavouriteDTO.getActualQuarter().equals("3")){
+                dataDTO.getMatchDTO().getThirdQuarter().get(markAsFavouriteDTO.getIndex().intValue()).setMarkAsFavourite(true);
             }
             if(markAsFavouriteDTO.getActualQuarter().equals("4")){
+                dataDTO.getMatchDTO().getForthQuarter().get(markAsFavouriteDTO.getIndex().intValue()).setMarkAsFavourite(true);
             }
+            if(markAsFavouriteDTO.getActualQuarter().equals("5")){
+                dataDTO.getMatchDTO().getExtraTime().get(markAsFavouriteDTO.getIndex().intValue()).setMarkAsFavourite(true);
+            }
+            mongoTemplate.save(dataDTO);
             markAsFavouriteDTOCreated.setQuarterDTo(modelMapper.map(frstQuarter, FirstQuarterDTO.class));
-        return markAsFavouriteDTOCreated;
+            return markAsFavouriteDTOCreated;
     }
 }

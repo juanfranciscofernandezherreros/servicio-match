@@ -34,9 +34,11 @@ public class PlayByPlayController {
     @DeleteMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.FAVOURITE + UrlMapping.PLAYBYPLAY)
     public void deletePlayByPlayAsFavourite(@RequestParam String numberofplay,
                                             @RequestParam String gamecode ,
-                                            @RequestParam String seasoncode) {
-        log.info("[PlayByPlayController][deletePlayByPlayAsFavourite] gamecode={} seasoncode={}" +numberofplay, gamecode,seasoncode );
-        playByPlayService.deleteByMarkAsFavourite(numberofplay,gamecode,seasoncode);
+                                            @RequestParam String seasoncode,
+                                            @RequestParam String actualQuarter,
+                                            @RequestParam String index) {
+        log.info("[PlayByPlayController][deletePlayByPlayAsFavourite] gamecode={} seasoncode={} actualQuarter={} index={}" +numberofplay, gamecode,seasoncode , actualQuarter,index);
+        playByPlayService.deleteByMarkAsFavourite(numberofplay,gamecode,seasoncode,actualQuarter,index);
     }
 
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + "/{fileName}")
@@ -53,5 +55,16 @@ public class PlayByPlayController {
         matchDTO.getBody().setHeader(header.getBody());
         return playByPlayService.save(matchDTO.getBody());
     }
+
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY)
+    public void addPlayByPlayToArticle(@RequestParam String numberofplay,
+                                       @RequestParam String gamecode ,
+                                       @RequestParam String seasoncode,
+                                       @RequestParam String articleId) throws IOException {
+        log.info("[PlayByPlayController][addPlayByPlayToArticle]");
+        playByPlayService.addToArticle(articleId, numberofplay, gamecode, seasoncode);
+    }
+
+
 
 }
