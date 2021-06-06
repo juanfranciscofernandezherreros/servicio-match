@@ -8,9 +8,8 @@ import com.fernandez.basketball.euroleague.match.header.dto.Header;
 import com.fernandez.basketball.euroleague.match.header.service.HeaderService;
 import com.fernandez.basketball.euroleague.match.playbyplay.adapter.MatchAdapter;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
-import com.fernandez.basketball.euroleague.match.playbyplay.entity.Match;
+import com.fernandez.basketball.euroleague.match.playbyplay.entity.jpa.Match;
 import com.fernandez.basketball.utils.DocumenUtils;
-import com.sun.jndi.toolkit.url.Uri;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
@@ -26,8 +25,6 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.NotNull;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLDecoder;
 import java.util.*;
 
 @Slf4j

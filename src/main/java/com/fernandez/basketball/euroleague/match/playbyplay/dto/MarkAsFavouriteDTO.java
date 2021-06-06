@@ -6,6 +6,7 @@ public class MarkAsFavouriteDTO {
     private String gameCode;
     private String seassonCode;
     private String actualQuarter;
+    private Long index;
 
     public FirstQuarterDTO getQuarterDTo() {
         return quarterDTo;
@@ -39,6 +40,14 @@ public class MarkAsFavouriteDTO {
         this.actualQuarter = actualQuarter;
     }
 
+    public Long getIndex() {
+        return index;
+    }
+
+    public void setIndex(Long index) {
+        this.index = index;
+    }
+
     @Override
     public String toString() {
         return "MarkAsFavouriteDTO{" +
@@ -46,6 +55,7 @@ public class MarkAsFavouriteDTO {
                 ", gameCode='" + gameCode + '\'' +
                 ", seassonCode='" + seassonCode + '\'' +
                 ", actualQuarter='" + actualQuarter + '\'' +
+                ", index=" + index +
                 '}';
     }
 }

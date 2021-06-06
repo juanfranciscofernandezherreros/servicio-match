@@ -5,7 +5,9 @@ import com.fernandez.basketball.commons.constants.UrlMapping;
 import com.fernandez.basketball.euroleague.match.common.repository.*;
 import com.fernandez.basketball.euroleague.match.playbyplay.adapter.MatchAdapter;
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.*;
-import com.fernandez.basketball.euroleague.match.playbyplay.entity.*;
+import com.fernandez.basketball.euroleague.match.playbyplay.entity.jpa.Match;
+import com.fernandez.basketball.euroleague.match.playbyplay.entity.jpa.Quarter;
+import com.fernandez.basketball.euroleague.match.playbyplay.repository.MatchMongoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -35,6 +37,8 @@ public class PlayByPlayImpl implements PlayByPlayService{
     private final MatchRepository matchRepository;
 
     private final FirstQuarterRepository firstQuarterRepository;
+
+    private final MatchMongoRepository matchMongoRepository;
 
     @Override
     public MatchDTO findAllMovementsFromMatchInJsonFile(String fileName) throws IOException {
@@ -117,6 +121,15 @@ public class PlayByPlayImpl implements PlayByPlayService{
             firstQuarter.setSeassoncode(markAsFavouriteDTO.getSeassonCode());
             firstQuarter.setMatch(match);
             Quarter frstQuarter = firstQuarterRepository.save(firstQuarter);
+            if(markAsFavouriteDTO.getActualQuarter().equals("1")){
+                System.out.println("MatchMongo:"+matchMongoRepository.findAll());
+            }
+            if(markAsFavouriteDTO.getActualQuarter().equals("2")){
+            }
+            if(markAsFavouriteDTO.getActualQuarter().equals("3")){
+            }
+            if(markAsFavouriteDTO.getActualQuarter().equals("4")){
+            }
             markAsFavouriteDTOCreated.setQuarterDTo(modelMapper.map(frstQuarter, FirstQuarterDTO.class));
         return markAsFavouriteDTOCreated;
     }

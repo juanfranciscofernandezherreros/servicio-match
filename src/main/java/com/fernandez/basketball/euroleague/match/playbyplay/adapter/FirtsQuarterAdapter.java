@@ -1,7 +1,7 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.adapter;
 
 import com.fernandez.basketball.euroleague.match.playbyplay.dto.FirstQuarterDTO;
-import com.fernandez.basketball.euroleague.match.playbyplay.entity.Quarter;
+import com.fernandez.basketball.euroleague.match.playbyplay.entity.jpa.Quarter;
 
 public class FirtsQuarterAdapter {
 
