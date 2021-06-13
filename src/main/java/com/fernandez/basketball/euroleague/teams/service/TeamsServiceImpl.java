@@ -56,13 +56,14 @@ public class TeamsServiceImpl implements TeamsService{
                         teamsDTO.setUrl(newUrl);
                         teamsDTO.setNameTeam(link.text());
                         teamsDTO.setSeasson(part2);
-                        mongoTemplate.save(teamsDTO);
                         teamsDTOList.add(teamsDTO);
                     }
                 }
+                teamsRepository.saveAll(teamsDTOList);
             } else {
                 log.error("El Status Code no es OK es: " + DocumenUtils.getStatusConnectionCode(url));
             }
+
         }
         return convertList2Page(teamsDTOList,pageable);
     }
