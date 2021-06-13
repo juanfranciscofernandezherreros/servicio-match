@@ -33,7 +33,7 @@ public class GamesController {
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 +UrlMapping.SYNC + UrlMapping.GAMES + UrlMapping.CLUBCODE + "/{clubcode}" + UrlMapping.SEASSONCODE + "/{seasoncode}")
     public Page<GamesScrappingDTO> syncAllGamesByTeamAndYear(@PathVariable String clubcode ,
                                                              @PathVariable String seasoncode ,
-                                                             final @PageableDefault(size = 40) Pageable pageable) throws MalformedURLException, UnsupportedEncodingException {
+                                                             final @PageableDefault(size = 3000) Pageable pageable) throws MalformedURLException, UnsupportedEncodingException {
         log.info("[GamesController][syncAllGamesByTeamAndYear] clubcode={} seasoncode={}" , clubcode , seasoncode);
 
         return gameService.findAllGamesByTeamAndYear(clubcode,seasoncode,pageable);
@@ -43,7 +43,7 @@ public class GamesController {
     @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.GAMES + UrlMapping.CLUBCODE + "/{clubcode}" + UrlMapping.SEASSONCODE + "/{seasoncode}")
     public Page<GamesScrappingDTO> findAllBySeassonCodeAndHeader(@PathVariable String clubcode ,
                                                                  @PathVariable String seasoncode ,
-                                                                 final @PageableDefault(size = 40) Pageable pageable) throws MalformedURLException, UnsupportedEncodingException {
+                                                                 final @PageableDefault(size = 3000) Pageable pageable) throws MalformedURLException, UnsupportedEncodingException {
         log.info("[GamesController][findAllBySeassonCodeAndHeader] seasoncode={} clubcode={}", seasoncode ,clubcode);
         return gameService.findAllGamesTeamAndYear(seasoncode,clubcode,pageable);
     }
