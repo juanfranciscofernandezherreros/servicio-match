@@ -14,9 +14,12 @@ import com.fernandez.basketball.euroleague.match.playbyplay.repository.MatchMong
 import com.fernandez.basketball.euroleague.match.playbyplay.repository.QuarterArticleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -27,9 +30,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -49,6 +51,8 @@ public class PlayByPlayImpl implements PlayByPlayService{
     private final MongoTemplate mongoTemplate;
 
     private final QuarterArticleRepository quarterArticleRepository;
+
+    private final Query query = new Query();
 
     @Override
     public MatchDTO findAllMovementsFromMatchInJsonFile(String fileName) throws IOException {
@@ -139,6 +143,44 @@ public class PlayByPlayImpl implements PlayByPlayService{
             quarterArticle.setGameCode(gamecode);
             quarterArticleRepository.save(quarterArticle);
         }
+    }
+
+    @Override
+    public MatchDTO findAllPlayTypeFromPlayer(String playtype, String playerid, String seasoncode,String gamecode) {
+        List<FirstQuarterDTO> listQuery = new ArrayList<FirstQuarterDTO>();
+        MatchMongo matchMongo = matchMongoRepository.findByGameCodeAndSeassonCode(gamecode,seasoncode);
+        List<FirstQuarterDTO> frstQuarterDtoList = matchMongo.getMatchDTO().getFirstQuarter()
+                .stream()
+                .filter(p -> p.getPlayerId().equals(playerid))
+                .filter(p -> p.getPlaytype().equals(playtype))
+                .collect(Collectors.toList());
+        List<SecondQuarterDTO> secondQuarterDTOList = matchMongo.getMatchDTO().getSecondQuarter()
+                .stream()
+                .filter(p -> p.getPlayerId().equals(playerid))
+                .filter(p -> p.getPlaytype().equals(playtype))
+                .collect(Collectors.toList());
+        List<ThirdQuarterDTO> thirdQuarterDTOList = matchMongo.getMatchDTO().getThirdQuarter()
+                .stream()
+                .filter(p -> p.getPlayerId().equals(playerid))
+                .filter(p -> p.getPlaytype().equals(playtype))
+                .collect(Collectors.toList());
+        List<ForthQuarterDTO> forthQuarterDTOList = matchMongo.getMatchDTO().getForthQuarter()
+                .stream()
+                .filter(p -> p.getPlayerId().equals(playerid))
+                .filter(p -> p.getPlaytype().equals(playtype))
+                .collect(Collectors.toList());
+        List<ExtraTimeDTO> extraTimeDTOList = matchMongo.getMatchDTO().getExtraTime()
+                .stream()
+                .filter(p -> p.getPlayerId().equals(playerid))
+                .filter(p -> p.getPlaytype().equals(playtype))
+                .collect(Collectors.toList());
+        MatchDTO filteredList =matchMongo.getMatchDTO();
+        filteredList.setFirstQuarter(frstQuarterDtoList);
+        filteredList.setSecondQuarter(secondQuarterDTOList);
+        filteredList.setThirdQuarter(thirdQuarterDTOList);
+        filteredList.setForthQuarter(forthQuarterDTOList);
+        filteredList.setExtraTime(extraTimeDTOList);
+        return filteredList;
     }
 
     @Override

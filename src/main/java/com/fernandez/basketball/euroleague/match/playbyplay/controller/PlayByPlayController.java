@@ -65,6 +65,15 @@ public class PlayByPlayController {
         playByPlayService.addToArticle(articleId, numberofplay, gamecode, seasoncode);
     }
 
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + UrlMapping.PLAYERS)
+    public ResponseEntity<MatchDTO> findAllPlayTypeFromPlayer(@RequestParam String playtype,
+                                          @RequestParam String playerid,
+                                          @RequestParam String seasoncode,
+                                          @RequestParam String gamecode){
+        log.info("[PlayByPlayController][findAllPlayTypeFromPlayer] playtype={} playerid={} seasoncode={} gamecode={}" + playtype , playerid ,seasoncode , gamecode);
+        return ResponseEntity.ok(playByPlayService.findAllPlayTypeFromPlayer(playtype, playerid, seasoncode,gamecode));
+    }
+
 
 
 }

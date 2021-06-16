@@ -22,4 +22,6 @@ public interface PlayByPlayService {
     void deleteByMarkAsFavourite(String numberOfPlay, String gamecode, String seasoncode,String actualQuarter,String index);
 
     void addToArticle(String articleId, String numberofplay, String gamecode, String seasoncode);
+
+    MatchDTO findAllPlayTypeFromPlayer(String playtype, String playerid, String seasoncode,String gamecode);
 }
