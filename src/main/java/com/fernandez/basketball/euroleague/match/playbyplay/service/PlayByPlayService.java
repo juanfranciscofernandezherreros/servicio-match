@@ -5,6 +5,7 @@ import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
 import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface PlayByPlayService {
     MatchDTO findAllMovementsFromMatchInJsonFile(String fileName) throws IOException;
@@ -22,4 +23,6 @@ public interface PlayByPlayService {
     void deleteByMarkAsFavourite(String numberOfPlay, String gamecode, String seasoncode,String actualQuarter,String index);
 
     void addToArticle(String articleId, String numberofplay, String gamecode, String seasoncode);
+
+    MatchDTO findAllPlayTypeFromPlayer(String playerid, String seasoncode, String gamecode);
 }

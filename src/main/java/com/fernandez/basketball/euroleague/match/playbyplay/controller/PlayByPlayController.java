@@ -12,6 +12,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -63,6 +64,15 @@ public class PlayByPlayController {
                                        @RequestParam String articleId) throws IOException {
         log.info("[PlayByPlayController][addPlayByPlayToArticle]");
         playByPlayService.addToArticle(articleId, numberofplay, gamecode, seasoncode);
+    }
+
+    @GetMapping(value = UrlMapping.PUBLIC + UrlMapping.V1 + UrlMapping.PLAYBYPLAY + UrlMapping.PLAYERS)
+    public ResponseEntity<MatchDTO> findAllPlayTypeFromPlayer(
+                        @RequestParam String playerid,
+                        @RequestParam String seasoncode,
+                        @RequestParam String gamecode){
+        log.info("[PlayByPlayController][findAllPlayTypeFromPlayer] playerid={} seasoncode={} gamecode={}" + playerid ,seasoncode , gamecode);
+        return ResponseEntity.ok(playByPlayService.findAllPlayTypeFromPlayer(playerid, seasoncode,gamecode));
     }
 
 

@@ -1,8 +1,11 @@
 package com.fernandez.basketball.euroleague.match.playbyplay.entity.mongo;
 
+import com.fernandez.basketball.euroleague.match.playbyplay.dto.MatchDTO;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
+import java.util.List;
 
 @Document("dataDTO")
 public class MatchMongo {
@@ -13,6 +16,8 @@ public class MatchMongo {
     private String gameCode;
 
     private String seassonCode;
+
+    private MatchDTO matchDTO;
 
     public String getId() {
         return id;
@@ -38,12 +43,21 @@ public class MatchMongo {
         this.seassonCode = seassonCode;
     }
 
+    public MatchDTO getMatchDTO() {
+        return matchDTO;
+    }
+
+    public void setMatchDTO(MatchDTO matchDTO) {
+        this.matchDTO = matchDTO;
+    }
+
     @Override
     public String toString() {
-        return "Match{" +
+        return "MatchMongo{" +
                 "id='" + id + '\'' +
                 ", gameCode='" + gameCode + '\'' +
                 ", seassonCode='" + seassonCode + '\'' +
+                ", matchDTO=" + matchDTO +
                 '}';
     }
 }
