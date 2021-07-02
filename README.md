@@ -1,4 +1,4 @@
-# Scrapping Eeuroleague Data
+# Scrapping Euroleague Data
 
 ## Starting 🚀
 
