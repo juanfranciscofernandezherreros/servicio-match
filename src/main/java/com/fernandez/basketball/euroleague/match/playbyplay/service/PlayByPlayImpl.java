@@ -146,33 +146,28 @@ public class PlayByPlayImpl implements PlayByPlayService{
     }
 
     @Override
-    public MatchDTO findAllPlayTypeFromPlayer(String playtype, String playerid, String seasoncode,String gamecode) {
+    public MatchDTO findAllPlayTypeFromPlayer(String playerid, String seasoncode,String gamecode) {
         List<FirstQuarterDTO> listQuery = new ArrayList<FirstQuarterDTO>();
         MatchMongo matchMongo = matchMongoRepository.findByGameCodeAndSeassonCode(gamecode,seasoncode);
         List<FirstQuarterDTO> frstQuarterDtoList = matchMongo.getMatchDTO().getFirstQuarter()
                 .stream()
                 .filter(p -> p.getPlayerId().equals(playerid))
-                .filter(p -> p.getPlaytype().equals(playtype))
                 .collect(Collectors.toList());
         List<SecondQuarterDTO> secondQuarterDTOList = matchMongo.getMatchDTO().getSecondQuarter()
                 .stream()
                 .filter(p -> p.getPlayerId().equals(playerid))
-                .filter(p -> p.getPlaytype().equals(playtype))
                 .collect(Collectors.toList());
         List<ThirdQuarterDTO> thirdQuarterDTOList = matchMongo.getMatchDTO().getThirdQuarter()
                 .stream()
                 .filter(p -> p.getPlayerId().equals(playerid))
-                .filter(p -> p.getPlaytype().equals(playtype))
                 .collect(Collectors.toList());
         List<ForthQuarterDTO> forthQuarterDTOList = matchMongo.getMatchDTO().getForthQuarter()
                 .stream()
                 .filter(p -> p.getPlayerId().equals(playerid))
-                .filter(p -> p.getPlaytype().equals(playtype))
                 .collect(Collectors.toList());
         List<ExtraTimeDTO> extraTimeDTOList = matchMongo.getMatchDTO().getExtraTime()
                 .stream()
                 .filter(p -> p.getPlayerId().equals(playerid))
-                .filter(p -> p.getPlaytype().equals(playtype))
                 .collect(Collectors.toList());
         MatchDTO filteredList =matchMongo.getMatchDTO();
         filteredList.setFirstQuarter(frstQuarterDtoList);
